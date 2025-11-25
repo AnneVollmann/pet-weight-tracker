@@ -8,7 +8,7 @@
     justify-content: space-around;
 }
 
-.btn {
+.btn-nav {
     width: 32px;
     aspect-ratio: 1;
     background-position: center;
@@ -16,7 +16,7 @@
     background-size: contain;
 }
 
-.btn:hover {
+.btn-nav:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
