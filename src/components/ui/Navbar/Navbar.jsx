@@ -1,17 +1,14 @@
-import { Component } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-class Navbar extends Component {
-    state = {}
-    render() {
-        return  <nav className="navbar bg-body-tertiary">
-                    <div className="container-fluid">
-                        <button type="button" className="btn btn-home"/>
-                        <button type="button" className="btn btn-new-entry"/>
-                        <button type="button" className="btn btn-settings"/>
-                    </div>
-                </nav>;
-    }
+export default function Navbar() {
+    return (
+        <nav className="navbar bg-body-tertiary">
+            <div className="container-fluid">
+                <Link to="/"><button type="button" className="btn btn-home" /></Link>
+                <Link to="/weightentry"><button type="button" className="btn btn-new-entry" /></Link>
+                <Link to="/settings"><button type="button" className="btn btn-settings" /></Link>
+            </div>
+        </nav>
+    );
 }
-
-export default Navbar;

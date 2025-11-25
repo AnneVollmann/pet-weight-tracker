@@ -1,5 +1,6 @@
 import { Component } from "react";
 import "./PetCard.css"
+import { Link } from "react-router-dom";
 
 class PetCard extends Component {
   state = {}
@@ -8,7 +9,9 @@ class PetCard extends Component {
               <img src={"/assets/img/pet-" + this.props.img + ".png"} className="card-img-top" alt="..."/>
               <div className="card-body">
                 <h5 className="card-title">{this.props.petName}</h5>
-                <button type="button" class="btn btn-add"/>
+                <Link to="/pet/:id">
+                  <button type="button" class="btn btn-add"/>
+                </Link>
               </div>
             </div>;
   }
