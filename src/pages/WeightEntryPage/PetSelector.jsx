@@ -27,9 +27,14 @@ export default function PetSelector({ selectedPetOption, setSelectedPetOption })
                     onChange={() => setSelectedPetOption("groupedPets")}
                 />
                 <label className="form-check-label" htmlFor="groupedPets">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Eine Gruppe von Tieren
-                    </button>
+                    <p>Eine Gruppe von Tieren</p>
+                    <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        disabled={selectedPetOption !== "groupedPets"}
+                    />
                 </label>
             </div>
             <div className="form-check">
@@ -43,9 +48,14 @@ export default function PetSelector({ selectedPetOption, setSelectedPetOption })
                     onChange={() => setSelectedPetOption("specificPets")}
                 />
                 <label className="form-check-label" htmlFor="specificPets">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Bestimmte Tiere
-                    </button>
+                    <p>Bestimmte Tiere</p>
+                    <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        disabled={selectedPetOption !== "specificPets"}
+                    />
                 </label>
             </div>
         </div>

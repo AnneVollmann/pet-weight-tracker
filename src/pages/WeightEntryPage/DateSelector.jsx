@@ -27,9 +27,14 @@ export default function DateSelector({ selectedDateOption, setSelectedDateOption
                     onChange={() => setSelectedDateOption("selectDate")}
                 />
                 <label className="form-check-label" htmlFor="selectDate">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Datum auswählen
-                    </button>
+                    <p> Datum auswählen</p>
+                    <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        disabled={selectedDateOption !== "selectDate"}
+                    />
                 </label>
             </div>
         </div>

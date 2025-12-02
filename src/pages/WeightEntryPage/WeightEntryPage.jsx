@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DateSelector from "./DateSelector";
 import PetSelector from "./PetSelector";
+import "./WeightEntryPage.css";
 
 export default function WeightEntryPage() {
     const [selectedDateOption, setSelectedDateOption] = useState("today");

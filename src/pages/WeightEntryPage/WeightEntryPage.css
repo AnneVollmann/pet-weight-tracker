@@ -1,0 +1,14 @@
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    label {
+        display: flex;
+        gap: 6px;
+
+        p {
+            margin: auto 0;
+        }
+    }
+}
