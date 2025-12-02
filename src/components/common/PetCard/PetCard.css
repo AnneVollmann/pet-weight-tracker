@@ -9,5 +9,6 @@
 }
 
 .pet-card .btn-add {
+    aspect-ratio: 1;
     background-image: url(../../../../public/assets/icons/plus-circle-fill.svg);
 }

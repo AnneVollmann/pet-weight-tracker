@@ -11,9 +11,6 @@
 .btn-nav {
     width: 32px;
     aspect-ratio: 1;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 .btn-nav:hover {
