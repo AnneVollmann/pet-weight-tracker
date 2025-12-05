@@ -17,6 +17,7 @@ export default function HomePage() {
                 {pets.map((pet) => (
                     <PetCard
                         key={pet.id}
+                        id={pet.id}
                         petName={pet.name}
                         img={pet.img}
                     />

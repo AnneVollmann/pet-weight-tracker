@@ -1,4 +1,6 @@
 export default function DateSelector({ selectedDateOption, setSelectedDateOption }) {
+    const today = new Date()
+    
     return (
         <div>
             <h2>Datum</h2>
@@ -28,13 +30,18 @@ export default function DateSelector({ selectedDateOption, setSelectedDateOption
                 />
                 <label className="form-check-label" htmlFor="selectDate">
                     <p> Datum auswählen</p>
-                    <button
+                    {/* <button
                         className="btn btn-primary dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                         disabled={selectedDateOption !== "selectDate"}
-                    />
+                    /> */}
+                    <input
+                        type="date"
+                        id="new-weight-date"
+                        min="1900-01-01"
+                        disabled={selectedDateOption !== "selectDate"}/>
                 </label>
             </div>
         </div>
