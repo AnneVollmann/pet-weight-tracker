@@ -10,7 +10,7 @@ class PetCard extends Component {
               <div className="card-body">
                 <h5 className="card-title">{this.props.petName}</h5>
                 <Link to="/pet/:id">
-                  <button type="button" class="btn btn-add"/>
+                  <button type="button" className="btn btn-add"/>
                 </Link>
               </div>
             </div>;
