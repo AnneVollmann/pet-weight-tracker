@@ -10,16 +10,16 @@ import PetDetailPage from './pages/PetDetailPage/PetDetailPage';
 import WeightEntryPage from './pages/WeightEntryPage/WeightEntryPage';
 
 function App() {
-    useEffect(() => {
-        console.log("Firebase DB:", db);
+    // useEffect(() => {
+    //     console.log("Firebase DB:", db);
 
-        getDocs(collection(db, "test")).then(() => {
-            console.log("Firestore connected!");
-        }).catch(err => {
-            console.error("Firestore error:", err);
-        });
+    //     getDocs(collection(db, "test")).then(() => {
+    //         console.log("Firestore connected!");
+    //     }).catch(err => {
+    //         console.error("Firestore error:", err);
+    //     });
 
-    }, []);
+    // }, []);
 
     return (
         <Router>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
+import "./WeightEntryPage.css";
 import DateSelector from "./DateSelector";
 import PetSelector from "./PetSelector";
-import "./WeightEntryPage.css";
+import SelectedPetsPanel from "./SelectedPetsPanel";
 
 export default function WeightEntryPage() {
     const [selectedDateOption, setSelectedDateOption] = useState("today");
-    const [selectedPetOption, setSelectedPetOption] = useState("allPets");
+    const [selectedPetsOption, setSelectedPetsOption] = useState("allPets");
     const [pets, setPets] = useState([]);
 
     useEffect(() => {
@@ -15,16 +16,19 @@ export default function WeightEntryPage() {
 
     return (
         <section>
-            <h1>WeightEntryPage</h1>
+            <h1>Neue Gewichtseinträge hinzufügen</h1>
             <form>
                 <DateSelector
                     selectedDateOption={selectedDateOption}
                     setSelectedDateOption={setSelectedDateOption}
                 />
                 <PetSelector
-                    selectedPetOption={selectedPetOption}
-                    setSelectedPetOption={setSelectedPetOption}
+                    selectedPetsOption={selectedPetsOption}
+                    setSelectedPetsOption={setSelectedPetsOption}
                     pets={pets}
+                />
+                <SelectedPetsPanel
+                    pets={pets} 
                 />
             </form>
         </section>
