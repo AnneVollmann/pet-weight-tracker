@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllGroups } from "../../firebase/groups";
 
-export default function PetSelector({ selectedPets, setSelectedPets, allPets }) {
+export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets }) {
     const [allGroups, setAllGroups] = useState([]);
 
     useEffect(() => {
@@ -19,10 +19,10 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                     id="allPets"
                     value="allPets"
                     checked={
-                        selectedPets.length === allPets.length &&
-                        selectedPets.every(id => allPets.map(p => p.id).includes(id))
+                        selectedPetIds.length === allPets.length &&
+                        selectedPetIds.every(id => allPets.map(p => p.id).includes(id))
                     }
-                    onChange={() => setSelectedPets(allPets.map(p => p.id))}
+                    onChange={() => setSelectedPetIds(allPets.map(p => p.id))}
                 />
                 <label className="form-check-label" htmlFor="allPets">
                     Alle Tiere
@@ -35,7 +35,7 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                     name="pets"
                     id="groupedPets"
                     value="groupedPets"
-                    onChange={() => setSelectedPets([])}
+                    onChange={() => setSelectedPetIds([])}
                 />
                 <label className="form-check-label" htmlFor="groupedPets">
                     Eine Gruppe von Tieren
@@ -44,7 +44,7 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                     <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                     <ul className="dropdown-menu">
                         {allGroups.map((group) => (
-                            <li onClick={() => setSelectedPets(group.petIds)}
+                            <li onClick={() => setSelectedPetIds(group.petIds)}
                                 key={group.id}
                                 className="dropdown-item"
                             >
@@ -61,7 +61,7 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                     name="pets"
                     id="specificPets"
                     value="specificPets"
-                    onChange={() => setSelectedPets([])}
+                    onChange={() => setSelectedPetIds([])}
                 />
                 <label className="form-check-label" htmlFor="specificPets">
                     Bestimmte Tiere
@@ -71,9 +71,9 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                     <ul className="dropdown-menu">
                         {allPets.map((pet) => (
                             <li onClick={() => {
-                                if (selectedPets.includes(pet.id)) {
-                                    setSelectedPets(selectedPets.filter(id => id !== pet.id));
-                                } else setSelectedPets([...selectedPets, pet.id]);
+                                if (selectedPetIds.includes(pet.id)) {
+                                    setSelectedPetIds(selectedPetIds.filter(id => id !== pet.id));
+                                } else setSelectedPetIds([...selectedPetIds, pet.id]);
                             }}
                                 key={pet.id}
                                 className="dropdown-item"
