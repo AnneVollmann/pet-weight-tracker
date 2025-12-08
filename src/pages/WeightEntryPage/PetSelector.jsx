@@ -1,4 +1,13 @@
+import { useEffect, useState } from "react";
+import { getAllGroups } from "../../firebase/groups";
+
 export default function PetSelector({ selectedPets, setSelectedPets, allPets }) {
+    const [allGroups, setAllGroups] = useState([]);
+
+    useEffect(() => {
+        getAllGroups().then(setAllGroups);
+    }, []);
+
     return (
         <div>
             <h2>Tiere</h2>
@@ -34,8 +43,14 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                 <div className="dropdown">
                     <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                     <ul className="dropdown-menu">
-                        <li className="dropdown-item">Meeris Außenhaltung</li>
-                        <li className="dropdown-item">Meeris Innenhaltung</li>
+                        {allGroups.map((group) => (
+                            <li onClick={() => setSelectedPets(group.petIds)}
+                                key={group.id}
+                                className="dropdown-item"
+                            >
+                                {group.name}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
@@ -58,9 +73,7 @@ export default function PetSelector({ selectedPets, setSelectedPets, allPets }) 
                             <li onClick={() => {
                                 if (selectedPets.includes(pet.id)) {
                                     setSelectedPets(selectedPets.filter(id => id !== pet.id));
-                                } else {
-                                    setSelectedPets([...selectedPets, pet.id]);
-                                }
+                                } else setSelectedPets([...selectedPets, pet.id]);
                             }}
                                 key={pet.id}
                                 className="dropdown-item"
