@@ -1,4 +1,4 @@
-export default function PetSelector({ selectedPetsOption, setSelectedPetsOption, pets }) {
+export default function PetSelector({ selectedPets, setSelectedPets, allPets }) {
     return (
         <div>
             <h2>Tiere</h2>
@@ -9,8 +9,11 @@ export default function PetSelector({ selectedPetsOption, setSelectedPetsOption,
                     name="pets"
                     id="allPets"
                     value="allPets"
-                    checked={selectedPetsOption === "allPets"}
-                    onChange={() => setSelectedPetsOption("allPets")}
+                    checked={
+                        selectedPets.length === allPets.length &&
+                        selectedPets.every(id => allPets.map(p => p.id).includes(id))
+                    }
+                    onChange={() => setSelectedPets(allPets.map(p => p.id))}
                 />
                 <label className="form-check-label" htmlFor="allPets">
                     Alle Tiere
@@ -23,14 +26,13 @@ export default function PetSelector({ selectedPetsOption, setSelectedPetsOption,
                     name="pets"
                     id="groupedPets"
                     value="groupedPets"
-                    checked={selectedPetsOption === "groupedPets"}
-                    onChange={() => setSelectedPetsOption("groupedPets")}
+                    onChange={() => setSelectedPets([])}
                 />
                 <label className="form-check-label" htmlFor="groupedPets">
                     Eine Gruppe von Tieren
                 </label>
                 <div className="dropdown">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" disabled={selectedPetsOption !== "groupedPets"}></button>
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                     <ul className="dropdown-menu">
                         <li className="dropdown-item">Meeris Außenhaltung</li>
                         <li className="dropdown-item">Meeris Innenhaltung</li>
@@ -44,17 +46,25 @@ export default function PetSelector({ selectedPetsOption, setSelectedPetsOption,
                     name="pets"
                     id="specificPets"
                     value="specificPets"
-                    checked={selectedPetsOption === "specificPets"}
-                    onChange={() => setSelectedPetsOption("specificPets")}
+                    onChange={() => setSelectedPets([])}
                 />
                 <label className="form-check-label" htmlFor="specificPets">
                     Bestimmte Tiere
                 </label>
                 <div className="dropdown">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" disabled={selectedPetsOption !== "specificPets"}></button>
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></button>
                     <ul className="dropdown-menu">
-                        {pets.map((pet) => (
-                            <li key={pet.id} className="dropdown-item">
+                        {allPets.map((pet) => (
+                            <li onClick={() => {
+                                if (selectedPets.includes(pet.id)) {
+                                    setSelectedPets(selectedPets.filter(id => id !== pet.id));
+                                } else {
+                                    setSelectedPets([...selectedPets, pet.id]);
+                                }
+                            }}
+                                key={pet.id}
+                                className="dropdown-item"
+                            >
                                 {pet.name}
                             </li>
                         ))}

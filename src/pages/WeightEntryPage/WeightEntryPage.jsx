@@ -7,11 +7,11 @@ import SelectedPetsPanel from "./SelectedPetsPanel";
 
 export default function WeightEntryPage() {
     const [selectedDateOption, setSelectedDateOption] = useState("today");
-    const [selectedPetsOption, setSelectedPetsOption] = useState("allPets");
-    const [pets, setPets] = useState([]);
+    const [allPets, setAllPets] = useState([]);
+    const [selectedPets, setSelectedPets] = useState(allPets.map(p => p.id));
 
     useEffect(() => {
-        getAllPets().then(setPets);
+        getAllPets().then(setAllPets);
     }, []);
 
     return (
@@ -23,12 +23,12 @@ export default function WeightEntryPage() {
                     setSelectedDateOption={setSelectedDateOption}
                 />
                 <PetSelector
-                    selectedPetsOption={selectedPetsOption}
-                    setSelectedPetsOption={setSelectedPetsOption}
-                    pets={pets}
+                    selectedPets={selectedPets}
+                    setSelectedPets={setSelectedPets}
+                    allPets={allPets}
                 />
                 <SelectedPetsPanel
-                    pets={pets} 
+                    selectedPets={selectedPets} 
                 />
             </form>
         </section>
