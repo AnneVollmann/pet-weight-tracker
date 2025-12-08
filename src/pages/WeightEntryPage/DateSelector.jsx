@@ -30,13 +30,6 @@ export default function DateSelector({ selectedDateOption, setSelectedDateOption
                 />
                 <label className="form-check-label" htmlFor="selectDate">
                     <p> Datum auswählen</p>
-                    {/* <button
-                        className="btn btn-primary dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        disabled={selectedDateOption !== "selectDate"}
-                    /> */}
                     <input
                         type="date"
                         id="new-weight-date"
