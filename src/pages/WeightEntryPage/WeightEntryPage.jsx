@@ -28,8 +28,9 @@ export default function WeightEntryPage() {
                     allPets={allPets}
                 />
                 <SelectedPetsPanel
-                    selectedPetIds={selectedPetIds} 
+                    selectedPetIds={selectedPetIds}
                 />
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </section>
     );

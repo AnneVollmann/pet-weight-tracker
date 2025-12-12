@@ -23,7 +23,15 @@ export default function SelectedPetsPanel({ selectedPetIds }) {
     return (
         <section>
             {selectedPets.map((pet) => (
-                <p key={pet.id}>{pet.name}</p>
+                <div key={pet.id} className="input-group mb-3">
+                    <span className="input-group-text">
+                        {pet.name}
+                    </span>
+                    <input type="number" inputMode="numeric" pattern="\d*" min="1" max="999999" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <span className="input-group-text">
+                        g
+                    </span>
+                </div>
             ))}
         </section>
     );
