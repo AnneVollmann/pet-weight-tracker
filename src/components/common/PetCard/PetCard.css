@@ -8,6 +8,11 @@
     justify-content: space-between;
 }
 
+.pet-card a {
+    text-decoration: none !important;
+    color: currentColor;
+}
+
 .pet-card .btn-add {
     aspect-ratio: 1;
     background-image: url(../../../../public/assets/icons/plus-circle-fill.svg);
