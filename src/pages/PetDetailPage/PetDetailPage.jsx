@@ -1,17 +1,22 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
+import { getWeightsForPet } from "../../firebase/weights";
 
 export default function PetDetailPage() {
     const { id } = useParams();
     const [pet, setPet] = useState(null);
+    const [weights, setWeights] = useState([]);
 
     useEffect(() => {
-        async function fetchPet() {
+        async function fetchData() {
             const p = await getPetById(id);
             setPet(p);
+
+            const w = await getWeightsForPet(id);
+            setWeights(w);
         }
-        fetchPet();
+        fetchData();
     }, [id]);
 
     if (!pet) return <h1>Lade...</h1>;
@@ -19,6 +24,16 @@ export default function PetDetailPage() {
     return (
         <section>
             <h1>{pet.name}</h1>
+
+            {weights.length === 0 && <p>Noch keine Einträge</p>}
+
+            <ul>
+                {weights.map(weight => (
+                    <li key={weight.id}>
+                        {weight.date.toDate().toLocaleDateString("de-DE")} – {weight.weight}g
+                    </li>
+                ))}
+            </ul>
         </section>
     );
 }
