@@ -7,7 +7,7 @@ import WeightSelector from "./WeightSelector";
 import { addWeight } from "../../firebase/weights";
 
 export default function WeightEntryPage() {
-    const [selectedDateOption, setSelectedDateOption] = useState("today");
+    const [selectedDateOption, setSelectedDateOption] = useState(new Date());
     const [allPets, setAllPets] = useState([]);
     const [selectedPetIds, setSelectedPetIds] = useState([]);
     const [weights, setWeights] = useState({});   // { petId: weight }
@@ -25,7 +25,7 @@ export default function WeightEntryPage() {
     function handleSubmit(e) {
         e.preventDefault();
           for (const petId of selectedPetIds) {
-            addWeight(petId, weights[petId])
+            addWeight(petId, weights[petId], selectedDateOption)
           }
         setSelectedPetIds([]);
         setWeights({});
@@ -36,7 +36,6 @@ export default function WeightEntryPage() {
             <h1>Neue Gewichtseinträge hinzufügen</h1>
             <form onSubmit={handleSubmit}>
                 <DateSelector
-                    selectedDateOption={selectedDateOption}
                     setSelectedDateOption={setSelectedDateOption}
                 />
                 <PetSelector
@@ -51,10 +50,6 @@ export default function WeightEntryPage() {
                 />
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-
-            {selectedPetIds.map(id => (
-                <p key={id}>{id}: {weights[id]}</p>
-            ))}
         </section>
     );
 }

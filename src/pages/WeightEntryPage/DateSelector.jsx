@@ -1,6 +1,8 @@
-export default function DateSelector({ selectedDateOption, setSelectedDateOption }) {
-    const today = new Date()
-    
+import { useState } from "react";
+
+export default function DateSelector({ setSelectedDateOption }) {
+    const [dateSelectionMode, setDateSelectionMode] = useState("today");    //"today" | "selectDate"
+
     return (
         <div>
             <h2>Datum</h2>
@@ -11,8 +13,11 @@ export default function DateSelector({ selectedDateOption, setSelectedDateOption
                     name="date"
                     id="today"
                     value="today"
-                    checked={selectedDateOption === "today"}
-                    onChange={() => setSelectedDateOption("today")}
+                    checked={dateSelectionMode === "today"}
+                    onChange={() => {
+                        setDateSelectionMode("today");
+                        setSelectedDateOption(new Date());
+                    }}
                 />
                 <label className="form-check-label" htmlFor="today">
                     Heute
@@ -25,16 +30,24 @@ export default function DateSelector({ selectedDateOption, setSelectedDateOption
                     name="date"
                     id="selectDate"
                     value="selectDate"
-                    checked={selectedDateOption === "selectDate"}
-                    onChange={() => setSelectedDateOption("selectDate")}
+                    checked={dateSelectionMode === "selectDate"}
+                    onChange={() => {
+                        setDateSelectionMode("selectDate");
+                    }}
                 />
                 <label className="form-check-label" htmlFor="selectDate">
                     <p> Datum auswählen</p>
                     <input
                         type="date"
-                        id="new-weight-date"
+                        id="newWeightDate"
                         min="1900-01-01"
-                        disabled={selectedDateOption !== "selectDate"}/>
+                        disabled={dateSelectionMode !== "selectDate"}
+                        onChange={(e) => {
+                            setDateSelectionMode("selectDate");
+                            const [year, month, day] = e.target.value.split("-");
+                            setSelectedDateOption(new Date(year, month - 1, day));
+                        }}
+                    />
                 </label>
             </div>
         </div>
