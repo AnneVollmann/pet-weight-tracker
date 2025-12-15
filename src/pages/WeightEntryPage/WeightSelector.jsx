@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
 
-export default function SelectedPetsPanel({ selectedPetIds }) {
+export default function WeightSelector({ selectedPetIds }) {
     const [selectedPets, setSelectedPets] = useState([]);
 
     useEffect(() => {
@@ -33,6 +33,7 @@ export default function SelectedPetsPanel({ selectedPetIds }) {
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-default"
                         required
+                        id={pet.id}
                     />
                     <span className="input-group-text">g</span>
                 </div>
