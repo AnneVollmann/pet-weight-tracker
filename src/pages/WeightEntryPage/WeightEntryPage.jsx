@@ -4,12 +4,13 @@ import "./WeightEntryPage.css";
 import DateSelector from "./DateSelector";
 import PetSelector from "./PetSelector";
 import SelectedPetsPanel from "./SelectedPetsPanel";
+import { addWeight } from "../../firebase/weights";
 
 export default function WeightEntryPage() {
     const [selectedDateOption, setSelectedDateOption] = useState("today");
     const [allPets, setAllPets] = useState([]);
     const [selectedPetIds, setSelectedPetIds] = useState([]);
-
+    
     useEffect(() => {
         getAllPets().then(setAllPets);
     }, []);

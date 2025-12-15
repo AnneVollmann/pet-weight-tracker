@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
 
@@ -10,14 +9,12 @@ export default function SelectedPetsPanel({ selectedPetIds }) {
             const pets = await Promise.all(
                 selectedPetIds.map(id => getPetById(id))
             );
-            setSelectedPets(pets.filter(pet => pet !== null));
+            const validPets = pets.filter(pet => pet !== null);
+            setSelectedPets(validPets);
         }
 
-        if (selectedPetIds.length > 0) {
-            fetchPets();
-        } else {
-            setSelectedPets([]);
-        }
+        if (selectedPetIds.length > 0) fetchPets();
+        else setSelectedPets([]);
     }, [selectedPetIds]);
 
     return (
@@ -29,17 +26,15 @@ export default function SelectedPetsPanel({ selectedPetIds }) {
                     </span>
                     <input
                         type="number"
-                        inputMode="numeric"
                         pattern="\d*"
                         min="1"
                         max="999999"
                         className="form-control"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-default"
-                        required />
-                    <span className="input-group-text">
-                        g
-                    </span>
+                        required
+                    />
+                    <span className="input-group-text">g</span>
                 </div>
             ))}
         </section>

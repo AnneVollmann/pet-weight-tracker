@@ -46,6 +46,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                     checked={petSelectionMode === 'group'}
                     onChange={() => {
                         setPetSelectionMode("group");
+                        setSelectedPetIds([]);
                     }}
                 />
                 <label className="form-check-label" htmlFor="groupedPets">
@@ -59,6 +60,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                         aria-expanded="false"
                         onClick={() => {
                             setPetSelectionMode("group");
+                            setSelectedPetIds([]);
                         }}
                     ></button>
                     <ul className="dropdown-menu">
@@ -88,6 +90,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                     checked={petSelectionMode === 'specific'}
                     onChange={() => {
                         setPetSelectionMode("specific");
+                        setSelectedPetIds([]);
                     }}
                 />
                 <label className="form-check-label" htmlFor="specificPets">
@@ -102,6 +105,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                         aria-expanded="false"
                         onClick={() => {
                             setPetSelectionMode("specific");
+                            setSelectedPetIds([]);
                         }}
                     ></button>
                     <ul className="dropdown-menu">
