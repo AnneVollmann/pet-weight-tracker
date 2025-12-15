@@ -3,10 +3,18 @@ import { getAllGroups } from "../../firebase/groups";
 
 export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets }) {
     const [allGroups, setAllGroups] = useState([]);
+    const [petSelectionMode, setPetSelectionMode] = useState("all");    //"all" | "group" | "specific"
 
     useEffect(() => {
         getAllGroups().then(setAllGroups);
     }, []);
+
+    function sameIds(a = [], b = []) {
+        return (
+            a.length === b.length &&
+            a.every(id => b.includes(id))
+        )
+    }
 
     return (
         <div>
@@ -18,11 +26,11 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                     name="pets"
                     id="allPets"
                     value="allPets"
-                    checked={
-                        selectedPetIds.length === allPets.length &&
-                        selectedPetIds.every(id => allPets.map(p => p.id).includes(id))
-                    }
-                    onChange={() => setSelectedPetIds(allPets.map(p => p.id))}
+                    checked={petSelectionMode === 'all'}
+                    onChange={() => {
+                        setPetSelectionMode("all");
+                        setSelectedPetIds(allPets.map(p => p.id));
+                    }}
                 />
                 <label className="form-check-label" htmlFor="allPets">
                     Alle Tiere
@@ -35,22 +43,38 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                     name="pets"
                     id="groupedPets"
                     value="groupedPets"
-                    onChange={() => setSelectedPetIds([])}
+                    checked={petSelectionMode === 'group'}
+                    onChange={() => {
+                        setPetSelectionMode("group");
+                    }}
                 />
                 <label className="form-check-label" htmlFor="groupedPets">
                     Eine Gruppe von Tieren
                 </label>
                 <div className="dropdown">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        onClick={() => {
+                            setPetSelectionMode("group");
+                        }}
+                    ></button>
                     <ul className="dropdown-menu">
-                        {allGroups.map((group) => (
-                            <li onClick={() => setSelectedPetIds(group.petIds)}
-                                key={group.id}
-                                className="dropdown-item"
-                            >
-                                {group.name}
-                            </li>
-                        ))}
+                        {allGroups.map(group => {
+                            const isActive = sameIds(group.petIds, selectedPetIds);
+
+                            return (
+                                <li
+                                    key={group.id}
+                                    className={`dropdown-item ${isActive ? "active" : ""}`}
+                                    onClick={() => setSelectedPetIds(group.petIds)}
+                                >
+                                    {group.name}
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             </div>
@@ -61,26 +85,42 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                     name="pets"
                     id="specificPets"
                     value="specificPets"
-                    onChange={() => setSelectedPetIds([])}
+                    checked={petSelectionMode === 'specific'}
+                    onChange={() => {
+                        setPetSelectionMode("specific");
+                    }}
                 />
                 <label className="form-check-label" htmlFor="specificPets">
                     Bestimmte Tiere
                 </label>
                 <div className="dropdown">
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></button>
+                    <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        data-bs-auto-close="outside"
+                        aria-expanded="false"
+                        onClick={() => {
+                            setPetSelectionMode("specific");
+                        }}
+                    ></button>
                     <ul className="dropdown-menu">
-                        {allPets.map((pet) => (
-                            <li onClick={() => {
-                                if (selectedPetIds.includes(pet.id)) {
-                                    setSelectedPetIds(selectedPetIds.filter(id => id !== pet.id));
-                                } else setSelectedPetIds([...selectedPetIds, pet.id]);
-                            }}
-                                key={pet.id}
-                                className="dropdown-item"
-                            >
-                                {pet.name}
-                            </li>
-                        ))}
+                        {allPets.map(pet => {
+                            const isActive = selectedPetIds.includes(pet.id);
+
+                            return (
+                                <li onClick={() => {
+                                    if (selectedPetIds.includes(pet.id)) {
+                                        setSelectedPetIds(selectedPetIds.filter(id => id !== pet.id));
+                                    } else setSelectedPetIds([...selectedPetIds, pet.id]);
+                                }}
+                                    key={pet.id}
+                                    className={`dropdown-item ${isActive ? "active" : ""}`}
+                                >
+                                    {pet.name}
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             </div>
