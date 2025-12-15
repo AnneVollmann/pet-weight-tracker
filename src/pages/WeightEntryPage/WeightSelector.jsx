@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
 
-export default function WeightSelector({ selectedPetIds }) {
+export default function WeightSelector({ selectedPetIds, weights, setWeights }) {
     const [selectedPets, setSelectedPets] = useState([]);
 
     useEffect(() => {
@@ -34,6 +34,9 @@ export default function WeightSelector({ selectedPetIds }) {
                         aria-describedby="inputGroup-sizing-default"
                         required
                         id={pet.id}
+                        onChange={e =>
+                            setWeights({ ...weights, [pet.id]: e.target.value })
+                        }
                     />
                     <span className="input-group-text">g</span>
                 </div>

@@ -14,7 +14,6 @@ export async function getWeightsForPet(petId) {
 }
 
 export async function addWeight(petId, weight, date = new Date()) {
-    console.log("Fehler beim Hinzufügen des Gewichts für", petId, ":", "xyz");
     try {
         const docRef = await addDoc(collection(db, "weights"), {
             petId,
