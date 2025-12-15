@@ -27,7 +27,16 @@ export default function SelectedPetsPanel({ selectedPetIds }) {
                     <span className="input-group-text">
                         {pet.name}
                     </span>
-                    <input type="number" inputMode="numeric" pattern="\d*" min="1" max="999999" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input
+                        type="number"
+                        inputMode="numeric"
+                        pattern="\d*"
+                        min="1"
+                        max="999999"
+                        className="form-control"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default"
+                        required />
                     <span className="input-group-text">
                         g
                     </span>
