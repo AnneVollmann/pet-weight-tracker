@@ -1,5 +1,5 @@
 import { db } from "./config";
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, addDoc } from "firebase/firestore";
 
 export async function getAllPets() {
   const snapshot = await getDocs(collection(db, "pets"));
@@ -15,4 +15,17 @@ export async function getPetById(petId) {
   } else {
     return null;
   }
+}
+
+export async function addPet(img, name) {
+    try {
+        const docRef = await addDoc(collection(db, "pets"), {
+          img,
+          name
+        });
+        return docRef.id;
+    } catch (error) {
+        console.error("Fehler beim Hinzufügen von", name);
+        throw error;
+    }
 }

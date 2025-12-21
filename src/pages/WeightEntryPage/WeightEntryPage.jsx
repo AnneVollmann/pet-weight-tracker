@@ -17,16 +17,12 @@ export default function WeightEntryPage() {
     }, []);
 
     useEffect(() => {
-        if (allPets.length > 0 && selectedPetIds.length === 0) {
-            setSelectedPetIds(allPets.map(p => p.id))
-        }
+        if (allPets.length > 0 && selectedPetIds.length === 0) setSelectedPetIds(allPets.map(p => p.id))
     }, [allPets]);
 
     function handleSubmit(e) {
         e.preventDefault();
-          for (const petId of selectedPetIds) {
-            addWeight(petId, weights[petId], selectedDateOption)
-          }
+          for (const petId of selectedPetIds) addWeight(petId, weights[petId], selectedDateOption)
         setSelectedPetIds([]);
         setWeights({});
     }
