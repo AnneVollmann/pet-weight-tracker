@@ -12,7 +12,14 @@ export default function HomePage() {
 
     return (
         <section className="page">
-            <img className="logo" src="./assets/img/pet-weight-tracker-logo-guinea-pig.png" alt="logo" />
+            <div className="logo-container">
+                <img className="logo" src="./assets/img/logo.png" alt="logo" />
+                <div>
+                    <p>Pet</p>
+                    <p>Weight</p>
+                    <p>Tracker</p>
+                </div>
+            </div>
             <div className='pets-list'>
                 {pets.map((pet) => (
                     <PetCard

@@ -1,13 +1,16 @@
 body {
+    max-width: 100dvb;
     height: 100vh;
     margin: 0;
 }
 
 main {
+    max-width: 100dvb;
     min-height: 100dvh;
 }
 
 .page {
+    max-width: 100dvb;
     padding: 24px 32px 72px 32px;
 }
 

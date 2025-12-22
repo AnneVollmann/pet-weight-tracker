@@ -1,5 +1,23 @@
-.logo {
-    max-width: 100%;
+.logo-container {
+    display: flex;
+
+    .logo {
+        aspect-ratio: 1;
+        width: 50%;
+    }
+
+    div {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        p {
+            font-size: 40px;
+            line-height: 0.8;
+            font-weight: 700;
+        }
+    }
 }
 
 .pets-list {
