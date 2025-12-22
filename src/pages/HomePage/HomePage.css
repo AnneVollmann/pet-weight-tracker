@@ -24,7 +24,6 @@
 
 .pets-list {
     min-height: calc(100dvh - 48px);
-    width: 80%;
     padding-top: 48px;
     gap: 16px;
     justify-self: center;

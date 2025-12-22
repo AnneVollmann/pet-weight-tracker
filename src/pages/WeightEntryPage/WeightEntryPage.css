@@ -12,3 +12,16 @@
         }
     }
 }
+
+.weight-selector {
+    padding-top: 20px;
+
+    .input-group {
+        .pet-name {
+            width: 30%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display:inline-block;
+        }
+    }
+}

@@ -18,10 +18,10 @@ export default function WeightSelector({ selectedPetIds, weights, setWeights }) 
     }, [selectedPetIds]);
 
     return (
-        <section>
+        <div className="weight-selector">
             {selectedPets.map((pet) => (
                 <div key={pet.id} className="input-group mb-3">
-                    <span className="input-group-text">
+                    <span className="pet-name input-group-text">
                         {pet.name}
                     </span>
                     <input
@@ -41,6 +41,6 @@ export default function WeightSelector({ selectedPetIds, weights, setWeights }) 
                     <span className="input-group-text">g</span>
                 </div>
             ))}
-        </section>
+        </div>
     );
 }

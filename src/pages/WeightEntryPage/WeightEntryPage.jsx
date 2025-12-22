@@ -28,7 +28,7 @@ export default function WeightEntryPage() {
     }
 
     return (
-        <section>
+        <section className="page">
             <h1>Neue Gewichtseinträge hinzufügen</h1>
             <form onSubmit={handleSubmit}>
                 <DateSelector

@@ -22,7 +22,7 @@ export default function PetDetailPage() {
     if (!pet) return <h1>Lade...</h1>;
 
     return (
-        <section>
+        <section className="page">
             <h1>{pet.name}</h1>
 
             {weights.length === 0 && <p>Noch keine Einträge</p>}
