@@ -13,9 +13,11 @@
         justify-content: space-between;
         
         p {
+            font-family: "RubikBubbles-Regular", sans-serif;
             font-size: 40px;
             line-height: 0.8;
             font-weight: 700;
+            color:rgb(36, 30, 18, 0.95);
         }
     }
 }

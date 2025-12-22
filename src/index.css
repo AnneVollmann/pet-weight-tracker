@@ -2,6 +2,7 @@ body {
     max-width: 100dvb;
     height: 100vh;
     margin: 0;
+    background-color: rgb(242, 242, 242);
 }
 
 main {
@@ -18,4 +19,15 @@ button {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+h1 {
+  font-family: "RubikBubbles-Regular", sans-serif;
+}
+
+@font-face {
+  font-family: "RubikBubbles-Regular";
+  src: url("../public/assets/fonts/RubikBubbles-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
