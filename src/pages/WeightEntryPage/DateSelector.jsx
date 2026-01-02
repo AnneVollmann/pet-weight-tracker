@@ -16,7 +16,9 @@ export default function DateSelector({ setSelectedDateOption }) {
                     checked={dateSelectionMode === "today"}
                     onChange={() => {
                         setDateSelectionMode("today");
-                        setSelectedDateOption(new Date());
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        setSelectedDateOption(today);
                     }}
                 />
                 <label className="form-check-label" htmlFor="today">
