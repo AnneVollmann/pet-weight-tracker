@@ -11,21 +11,33 @@
 .btn-nav {
     width: 32px;
     aspect-ratio: 1;
-}
 
-.btn-nav:hover {
-    cursor: pointer;
-    transform: scale(1.2);
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+    }
 }
 
 .btn-home {
     background-image: url(../../../../public/assets/icons/house.svg);
+
+    &:hover {
+        background-image: url(../../../../public/assets/icons/house-fill.svg);
+    }
 }
 
 .btn-new-entry {
     background-image: url(../../../../public/assets/icons/plus-circle.svg);
+
+    &:hover {
+        background-image: url(../../../../public/assets/icons/plus-circle-fill.svg);
+    }
 }
 
 .btn-settings {
     background-image: url(../../../../public/assets/icons/gear.svg);
+
+    &:hover {
+        background-image: url(../../../../public/assets/icons/gear-fill.svg);
+    }
 }

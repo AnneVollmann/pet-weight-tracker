@@ -8,7 +8,7 @@ export default function PetCard({ id, petName, img }) {
         <img src={"/assets/img/pet-" + img + ".png"} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{petName}</h5>
-          <button type="button" className="btn btn-add" />
+          <button type="button" className="btn btn-add"/>
         </div>
       </Link>
     </div>

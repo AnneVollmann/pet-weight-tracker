@@ -6,29 +6,40 @@
 }
 
 body {
-    max-width: 100dvb;
-    height: 100vh;
-    margin: 0;
-    background-color: rgb(242, 242, 242);
-    font-family: "Delius-Regular", sans-serif;
-    font-weight: 500;
-    color:rgb(36, 30, 18, 0.95);
+  max-width: 100dvb;
+  height: 100vh;
+  margin: 0;
+  background-color: rgb(242, 242, 242);
+  font-family: "Delius-Regular", sans-serif;
+  font-weight: 500;
+  color: rgb(36, 30, 18, 0.95);
 }
 
 main {
-    max-width: 100dvb;
-    min-height: 100dvh;
+  max-width: 100dvb;
+  min-height: 100dvh;
 }
 
 .page {
-    max-width: 100dvb;
-    padding: 24px 32px 72px 32px;
+  max-width: 100dvb;
+  padding: 24px 32px 72px 32px;
 }
 
 button {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.btn-primary,
+.form-check-input:checked {
+  background-color: #4f75b3;
+  border-color: #4f75b3;
+
+  &:hover {
+    background-color: #7597c5;
+    border-color: #7597c5;
+  }
 }
 
 h1 {

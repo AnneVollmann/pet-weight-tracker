@@ -1,19 +1,32 @@
+.pet-card {
+    .card-body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        margin: 0;
+        align-self: center;
+    }
+
+    .pet-card-link {
+        text-decoration: none !important;
+        color: currentColor;
+    }
+
+    .btn-add {
+        width: 32px;
+        aspect-ratio: 1;
+        padding: 0;
+        background-image: url(../../../../public/assets/icons/plus-circle.svg);
+
+        &:hover {
+            background-image: url(../../../../public/assets/icons/plus-circle-fill.svg);
+        }
+    }
+}
+
 .pet-card:hover {
     cursor: pointer;
     transform: scale(1.02);
-}
-
-.pet-card .card-body {
-    display: flex;
-    justify-content: space-between;
-}
-
-.pet-card a {
-    text-decoration: none !important;
-    color: currentColor;
-}
-
-.pet-card .btn-add {
-    aspect-ratio: 1;
-    background-image: url(../../../../public/assets/icons/plus-circle-fill.svg);
 }
