@@ -6,8 +6,8 @@ import { addPet } from "../../firebase/pets";
 export default function SettingsPage() {
     const [showAddPet, setShowAddPet] = useState(false);
 
-    async function handleAddPet(petData) {
-        await addPet(petData);
+    async function handleAddPet(img, name) {
+        await addPet(img, name);
         setShowAddPet(false);
     }
 
@@ -27,7 +27,9 @@ export default function SettingsPage() {
                 title="Neues Tier hinzufügen"
             >
                 <AddPetForm
-                    onSubmit={handleAddPet}
+                    onSubmit={(img, name) =>
+                        handleAddPet(img, name)
+                    }
                     onCancel={() => setShowAddPet(false)}
                 />
             </Overlay>

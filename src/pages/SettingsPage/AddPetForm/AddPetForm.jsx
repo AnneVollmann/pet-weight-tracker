@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { addPet } from "../../../firebase/pets";
 
-export default function AddPetForm({ onCancel }) {
+export default function AddPetForm({ onSubmit, onCancel }) {
     const [img, setImg] = useState(1);
     const [name, setName] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
-        addPet(img, name);
+        onSubmit(img, name);
         onCancel();
     }
 

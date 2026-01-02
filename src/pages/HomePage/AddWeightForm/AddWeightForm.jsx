@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { addWeight } from "../../../firebase/weights";
 
-export default function AddWeightForm({ id, petName, onCancel }) {
-    const [date, setDate] = useState(1);
+export default function AddWeightForm({ onSubmit, onCancel }) {
+    const [date, setDate] = useState(new Date());
     const [weight, setWeight] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
-        // addWeight(petId, weight, date);
+        onSubmit(weight, date);
         onCancel();
     }
 
@@ -20,26 +20,29 @@ export default function AddWeightForm({ id, petName, onCancel }) {
                         type="date"
                         id="newWeightDate"
                         min="1900-01-01"
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={e => {
+                            const [year, month, day] = e.target.value.split("-");
+                            setDate(new Date(year, month - 1, day));
+                        }}
                     />
                 </label>
             </div>
 
             <div className="mb-3">
                 <label className="form-label">Gewicht</label>
-                    <input
-                        type="number"
-                        pattern="\d*"
-                        min="1"
-                        max="999999"
-                        className="form-control"
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"
-                        required
-                        onChange={e =>
-                            setWeight(e.target.value)
-                        }
-                    />
+                <input
+                    type="number"
+                    pattern="\d*"
+                    min="1"
+                    max="999999"
+                    className="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    required
+                    onChange={e =>
+                        setWeight(e.target.value)
+                    }
+                />
             </div>
 
             <div className="d-flex justify-content-end gap-2">

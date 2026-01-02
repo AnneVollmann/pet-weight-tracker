@@ -4,6 +4,7 @@ import Overlay from "../../components/ui/Overlay/Overlay";
 import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
+import { addWeight } from "../../firebase/weights";
 
 export default function HomePage() {
     const [pets, setPets] = useState([]);
@@ -19,8 +20,8 @@ export default function HomePage() {
         setShowAddWeight(true);
     }
 
-    async function handleAddWeight(petData) {
-        // await addPet(petData);
+    async function handleAddWeight(pet, weight, date) {
+        await addWeight(pet.id, weight, date);
         setShowAddWeight(false);
     }
 
@@ -49,10 +50,12 @@ export default function HomePage() {
             <Overlay
                 show={showAddWeight}
                 onClose={() => setShowAddWeight(false)}
-                title={`Gewicht für ${selectedPet.name}`}
+                title={selectedPet ? `Gewicht für ${selectedPet.name}` : "Gewicht hinzufügen"}
             >
                 <AddWeightForm
-                    onSubmit={handleAddWeight}
+                    onSubmit={(weight, date) =>
+                        handleAddWeight(selectedPet, weight, date)
+                    }
                     onCancel={() => setShowAddWeight(false)}
                 />
             </Overlay>
