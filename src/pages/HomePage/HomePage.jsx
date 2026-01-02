@@ -1,14 +1,22 @@
 import "./HomePage.css"
 import PetCard from "../../components/common/PetCard/PetCard";
+import Overlay from "../../components/ui/Overlay/Overlay";
+import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
 
 export default function HomePage() {
     const [pets, setPets] = useState([]);
+    const [showAddWeight, setShowAddWeight] = useState(false);
 
     useEffect(() => {
         getAllPets().then(setPets);
     }, []);
+
+    async function handleAddWeight(petData) {
+        // await addWeight(petData);
+        setShowAddWeight(false);
+    }
 
     return (
         <section className="page">
@@ -32,6 +40,17 @@ export default function HomePage() {
                     />
                 ))}
             </div>
+
+            <Overlay
+                show={showAddWeight}
+                onClose={() => setShowAddWeight(false)}
+                title="Gewicht hinzufügen"
+            >
+                <AddWeightForm
+                    onSubmit={handleAddWeight}
+                    onCancel={() => setShowAddWeight(false)}
+                />
+            </Overlay>
         </section>
     );
 }
