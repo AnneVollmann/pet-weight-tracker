@@ -8,13 +8,19 @@ import { getAllPets } from "../../firebase/pets";
 export default function HomePage() {
     const [pets, setPets] = useState([]);
     const [showAddWeight, setShowAddWeight] = useState(false);
+    const [selectedPet, setSelectedPet] = useState(null);
 
     useEffect(() => {
         getAllPets().then(setPets);
     }, []);
 
+    function handleOpenAddWeight(pet) {
+        setSelectedPet(pet);
+        setShowAddWeight(true);
+    }
+
     async function handleAddWeight(petData) {
-        // await addWeight(petData);
+        // await addPet(petData);
         setShowAddWeight(false);
     }
 
@@ -34,9 +40,8 @@ export default function HomePage() {
                 {pets.map((pet) => (
                     <PetCard
                         key={pet.id}
-                        id={pet.id}
-                        petName={pet.name}
-                        img={pet.img}
+                        pet={pet}
+                        onAddWeight={handleOpenAddWeight}
                     />
                 ))}
             </div>
@@ -44,7 +49,7 @@ export default function HomePage() {
             <Overlay
                 show={showAddWeight}
                 onClose={() => setShowAddWeight(false)}
-                title="Gewicht hinzufügen"
+                title={`Gewicht für ${selectedPet.name}`}
             >
                 <AddWeightForm
                     onSubmit={handleAddWeight}

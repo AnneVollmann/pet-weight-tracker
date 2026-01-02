@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addWeight } from "../../../firebase/weights";
 
-export default function AddWeightForm({ onCancel }) {
+export default function AddWeightForm({ id, petName, onCancel }) {
     const [date, setDate] = useState(1);
     const [weight, setWeight] = useState("");
 
