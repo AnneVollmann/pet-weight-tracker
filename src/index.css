@@ -32,7 +32,10 @@ button {
 }
 
 .btn-primary,
-.form-check-input:checked {
+.form-check-input:checked,
+.btn.active,
+.btn.show,
+.dropdown-item.active {
   background-color: #4f75b3;
   border-color: #4f75b3;
 
@@ -45,6 +48,7 @@ button {
 h1 {
   font-family: "RubikBubbles-Regular", sans-serif;
   padding-bottom: 8px;
+  color: #4f75b3;
 }
 
 h2 {

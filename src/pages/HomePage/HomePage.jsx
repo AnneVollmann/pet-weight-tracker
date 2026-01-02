@@ -15,9 +15,11 @@ export default function HomePage() {
             <div className="logo-container">
                 <img className="logo" src="./assets/img/logo.png" alt="logo" />
                 <div>
-                    <p>Pet</p>
-                    <p>Weight</p>
-                    <p>Tracker</p>
+                    <h1>
+                        <p>Pet</p>
+                        <p>Weight</p>
+                        <p>Tracker</p>
+                    </h1>
                 </div>
             </div>
             <div className='pets-list'>
