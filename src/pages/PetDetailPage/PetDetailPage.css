@@ -1,13 +1,18 @@
 .pet-weights-overview {
-    padding: 0 32px;
+    padding: 0 12px;
     display: flex;
     flex-direction: column;
     font-size: 20px;
     font-family: "Inter", sans-serif;
 
+    li:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
     li {
-        padding: 4px 0;
+        padding: 6px 20px;
         display: flex;
+        border-radius: 16px;
 
         .pet-date {
             width: 50%;

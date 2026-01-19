@@ -1,10 +1,11 @@
 import { db } from "./config";
-import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
+import { collection, getDocs, query, where, addDoc, orderBy } from "firebase/firestore";
 
 export async function getWeightsForPet(petId) {
     const q = query(
         collection(db, "weights"),
-        where("petId", "==", petId)
+        where("petId", "==", petId),
+        orderBy("date", "desc")
     );
     const snapshot = await getDocs(q);
     return snapshot.docs.map(doc => ({
