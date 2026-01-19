@@ -1,9 +1,28 @@
 .pet-weights-overview {
+    max-width: 560px;
+    margin: 0 auto;
     padding: 0 12px;
+    align-self: center;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
     font-family: "Inter", sans-serif;
+
+    h2 {
+        font-family: "Delius-Regular", sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        padding: 0;
+    }
+
+    h3 {
+        font-family: "Delius-Regular", sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+
+.pet-weights-month {
+    padding: 4px 0 16px 0;
 
     li:nth-child(odd) {
         background-color: #ffffff;
@@ -13,6 +32,7 @@
         padding: 6px 20px;
         display: flex;
         border-radius: 16px;
+        font-size: 20px;
 
         .pet-date {
             width: 50%;
