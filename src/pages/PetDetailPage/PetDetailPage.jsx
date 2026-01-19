@@ -30,7 +30,14 @@ export default function PetDetailPage() {
             <ul>
                 {weights.map(weight => (
                     <li key={weight.id}>
-                        {weight.date.toDate().toLocaleDateString("de-DE")} – {weight.weight}g
+                        {weight.date
+                            .toDate()
+                            .toLocaleDateString("de-DE", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                            })}
+                        {" "}– {weight.weight}g
                     </li>
                 ))}
             </ul>
