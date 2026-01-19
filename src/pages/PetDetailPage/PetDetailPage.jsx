@@ -1,3 +1,4 @@
+import "./PetDetailPage.css"
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
@@ -27,17 +28,22 @@ export default function PetDetailPage() {
 
             {weights.length === 0 && <p>Noch keine Einträge</p>}
 
-            <ul>
+            <ul className="pet-weights-overview">
                 {weights.map(weight => (
                     <li key={weight.id}>
-                        {weight.date
-                            .toDate()
-                            .toLocaleDateString("de-DE", {
-                                day: "2-digit",
-                                month: "2-digit",
-                                year: "numeric",
-                            })}
-                        {" "}– {weight.weight}g
+                        <span className="pet-date">
+                            {weight.date
+                                .toDate()
+                                .toLocaleDateString("de-DE", {
+                                    day: "2-digit",
+                                    month: "2-digit",
+                                    year: "numeric",
+                                })
+                            }
+                        </span>
+                        <span className="pet-weight">
+                            {weight.weight} g
+                        </span>
                     </li>
                 ))}
             </ul>
