@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
 
 export default function WeightChart({ weights }) {
+    const [selectedWeight, setSelectedWeight] = useState(null);
+
     if (!weights || weights.length === 0) return <br />;
 
     //x-axis
@@ -28,14 +31,37 @@ export default function WeightChart({ weights }) {
         ]
     };
 
+    const handleClick = (event, elements) => {
+        if (!elements.length) return;
+
+        setSelectedWeight(weights[elements[0].index]);
+    };
+
     const options = {
         responsive: true,
-        plugins: { },
+        plugins: {},
         scales: {
             x: { title: { display: true, text: "Datum" } },
             y: { title: { display: true, text: "Gewicht (in Gramm)" }, beginAtZero: false }
-        }
+        },
+        onClick: handleClick
     };
 
-    return <Line data={data} options={options} />;
+    return <section>
+        <Line data={data} options={options} />
+        <p>
+            {selectedWeight === null ? (
+                "\u00A0"
+            ) : (
+                <>
+                    {selectedWeight.date.toDate().toLocaleDateString("de-DE", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    })}:{" "}
+                    {selectedWeight.weight} g
+                </>
+            )}
+        </p>
+    </section>;
 }
