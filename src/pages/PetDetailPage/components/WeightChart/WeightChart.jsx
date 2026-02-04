@@ -6,8 +6,12 @@ export default function WeightChart({ weights }) {
 
     if (!weights || weights.length === 0) return <br />;
 
+    const sortedWeights = [...weights].sort(
+        (a, b) => a.date.toDate() - b.date.toDate()
+    );
+
     //x-axis
-    const dateValues = weights.map(w => {
+    const dateValues = sortedWeights.map(w => {
         const date = w.date.toDate();
         return date.toLocaleDateString("de-DE", {
             month: "short",
@@ -16,7 +20,7 @@ export default function WeightChart({ weights }) {
     });
 
     //y-axis
-    const weightValues = weights.map(w => w.weight);
+    const weightValues = sortedWeights.map(w => w.weight);
 
     const data = {
         labels: dateValues,
@@ -34,7 +38,7 @@ export default function WeightChart({ weights }) {
     const handleClick = (event, elements) => {
         if (!elements.length) return;
 
-        setSelectedWeight(weights[elements[0].index]);
+        setSelectedWeight(sortedWeights[elements[0].index]);
     };
 
     const options = {
