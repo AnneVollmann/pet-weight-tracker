@@ -7,13 +7,25 @@ import { getAllPets } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
 
 export default function HomePage() {
-    const [pets, setPets] = useState([]);
+    const [pets, setPets] = useState(null);
     const [showAddWeight, setShowAddWeight] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
 
     useEffect(() => {
-        getAllPets().then(setPets);
+        async function fetchPets() {
+            const petsData = await getAllPets();
+            setPets(petsData);
+        }
+        fetchPets();
     }, []);
+
+    if (pets === null) {
+        return <p>Lädt…</p>;
+    }
+
+    if (pets.length === 0) {
+        return <p>Noch keine Tiere vorhanden</p>;
+    }
 
     function handleOpenAddWeight(pet) {
         setSelectedPet(pet);
