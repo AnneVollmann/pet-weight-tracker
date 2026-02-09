@@ -1,3 +1,12 @@
+:root {
+  --background: #f2f2f2;
+  --white: #ffffff;
+  --black: #241e12f2;
+  --main-light: #7597c5;
+  --main-dark: #4f75b3;
+  --warning: #b05a6d;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,10 +18,10 @@ body {
   max-width: 100dvb;
   height: 100vh;
   margin: 0;
-  background-color: rgb(242, 242, 242);
+  background-color: var(--background);
   font-family: "Delius-Regular", sans-serif;
   font-weight: 500;
-  color: rgb(36, 30, 18, 0.95);
+  color: var(--black);
 }
 
 main {
@@ -36,19 +45,19 @@ button {
 .btn.active,
 .btn.show,
 .dropdown-item.active {
-  background-color: #4f75b3;
-  border-color: #4f75b3;
+  background-color: var(--main-dark);
+  border-color: var(--main-dark);
 
   &:hover {
-    background-color: #7597c5;
-    border-color: #7597c5;
+    background-color: var(--main-light);
+    border-color: var(--main-light);
   }
 }
 
 h1 {
   font-family: "RubikBubbles-Regular", sans-serif;
   padding-bottom: 8px;
-  color: #4f75b3;
+  color: var(--main-dark);
 }
 
 h2 {
