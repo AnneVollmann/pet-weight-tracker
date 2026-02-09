@@ -1,4 +1,4 @@
-import { db } from "./config";
+import { db } from "../lib/Firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 export async function getAllGroups() {

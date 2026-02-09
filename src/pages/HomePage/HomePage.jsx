@@ -13,8 +13,13 @@ export default function HomePage() {
 
     useEffect(() => {
         async function fetchPets() {
-            const petsData = await getAllPets();
+            try {
+                const petsData = await getAllPets();
             setPets(petsData);
+            }
+            catch {
+                setPets([]);
+            }
         }
         fetchPets();
     }, []);

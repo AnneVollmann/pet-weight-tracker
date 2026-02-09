@@ -1,4 +1,4 @@
-import { db } from "./config";
+import { db } from "../lib/Firebase";
 import { collection, getDocs, query, where, addDoc, orderBy } from "firebase/firestore";
 
 export async function getWeightsForPet(petId) {
