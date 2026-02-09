@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
 export default function WeightChart({ weights, averageWeightLastThreeMonth }) {
     const [selectedWeight, setSelectedWeight] = useState(null);
+    const [lineColor, setLineColor] = useState(null);
 
-    if (!weights || weights.length === 0) return <br />;
+    useEffect(() => {
+        async function getLineColor() {
+            if (!weights || weights.length <= 1) return;
+            const colorMainDark = getComputedStyle(document.documentElement).getPropertyValue("--main-dark").trim();
+            const colorWarning = getComputedStyle(document.documentElement).getPropertyValue("--warning").trim();
+            const weightTooLow = weights[0].weight <= averageWeightLastThreeMonth;
+            weightTooLow ? setLineColor(colorWarning) : setLineColor(colorMainDark);
+        }
+        getLineColor();
+    })
+
+    if (!weights || weights.length <= 1) return <br />;
 
     const sortedWeights = [...weights].sort(
         (a, b) => a.date.toDate() - b.date.toDate()
@@ -22,18 +34,14 @@ export default function WeightChart({ weights, averageWeightLastThreeMonth }) {
     //y-axis
     const weightValues = sortedWeights.map(w => w.weight);
 
-    const colorMainDark = getComputedStyle(document.documentElement).getPropertyValue("--main-dark").trim();
-
-    const colorWarning = getComputedStyle(document.documentElement).getPropertyValue("--warning").trim();
-
     const data = {
         labels: dateValues,
         datasets: [
             {
                 label: "Gewicht in g",
                 data: weightValues,
-                borderColor: colorMainDark,
-                backgroundColor: colorMainDark,
+                borderColor: lineColor,
+                backgroundColor: lineColor,
                 fill: false,
                 tension: 0.3
             }

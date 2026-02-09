@@ -52,11 +52,11 @@ export default function PetDetailPage() {
         <section className="page">
             <h1>{pet.name}</h1>
 
-            <p>Durchschnittsgewicht: {averageWeightLastThreeMonth}g </p>
+            {weights.length >= 2 && <p>Durchschnittsgewicht: {averageWeightLastThreeMonth}g </p>}
 
             {weights.length === 0 && <p>Noch keine Einträge</p>}
 
-            <WeightChart weights={weights} />
+            <WeightChart weights={weights} averageWeightLastThreeMonth={averageWeightLastThreeMonth} />
 
             <WeightTable groupedWeights={groupedWeights} />
         </section>
