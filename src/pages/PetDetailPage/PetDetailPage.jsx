@@ -22,6 +22,20 @@ export default function PetDetailPage() {
         fetchData();
     }, [id]);
 
+    const now = new Date();
+    const threeMonthAgo = new Date().setMonth(now.getMonth() - 3);
+    const weightsLastThreeMonth = weights.filter(w => {
+        const date = w.date.toDate();
+        return date >= threeMonthAgo && date <= now;
+    })
+    const averageWeightLastThreeMonth =
+        weightsLastThreeMonth.length === 0
+            ? null
+            : Math.round(
+                weightsLastThreeMonth.reduce((sum, w) => Number(sum) + Number(w.weight), 0) /
+                Number(weightsLastThreeMonth.length)
+            );
+
     const groupedWeights = weights.reduce((acc, weight) => {
         const date = weight.date.toDate();
         const year = date.getFullYear();
@@ -37,6 +51,8 @@ export default function PetDetailPage() {
     return (
         <section className="page">
             <h1>{pet.name}</h1>
+
+            <p>Durchschnittsgewicht: {averageWeightLastThreeMonth}g </p>
 
             {weights.length === 0 && <p>Noch keine Einträge</p>}
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function WeightChart({ weights }) {
+export default function WeightChart({ weights, averageWeightLastThreeMonth }) {
     const [selectedWeight, setSelectedWeight] = useState(null);
 
     if (!weights || weights.length === 0) return <br />;
@@ -22,13 +22,18 @@ export default function WeightChart({ weights }) {
     //y-axis
     const weightValues = sortedWeights.map(w => w.weight);
 
+    const colorMainDark = getComputedStyle(document.documentElement).getPropertyValue("--main-dark").trim();
+
+    const colorWarning = getComputedStyle(document.documentElement).getPropertyValue("--warning").trim();
+
     const data = {
         labels: dateValues,
         datasets: [
             {
                 label: "Gewicht in g",
                 data: weightValues,
-                borderColor: "#4f75b3",
+                borderColor: colorMainDark,
+                backgroundColor: colorMainDark,
                 fill: false,
                 tension: 0.3
             }
