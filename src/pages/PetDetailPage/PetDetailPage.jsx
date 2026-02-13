@@ -5,6 +5,7 @@ import { getPetById } from "../../firebase/pets";
 import { getWeightsForPet } from "../../firebase/weights";
 import WeightTable from "./components/WeightTable/WeightTable";
 import WeightChart from "./components/WeightChart/WeightChart";
+import WarningBadge from "./components/WarningBadge/WarningBadge";
 
 export default function PetDetailPage() {
     const { id } = useParams();
@@ -22,8 +23,12 @@ export default function PetDetailPage() {
         fetchData();
     }, [id]);
 
+    // average weight of the last three months
+
     const now = new Date();
-    const threeMonthAgo = new Date().setMonth(now.getMonth() - 3);
+    const threeMonthAgo = new Date()
+    threeMonthAgo.setMonth(now.getMonth() - 3);
+
     const weightsLastThreeMonth = weights.filter(w => {
         const date = w.date.toDate();
         return date >= threeMonthAgo && date <= now;
@@ -35,6 +40,22 @@ export default function PetDetailPage() {
                 weightsLastThreeMonth.reduce((sum, w) => Number(sum) + Number(w.weight), 0) /
                 Number(weightsLastThreeMonth.length)
             );
+
+    // current weight (latest entry)
+
+    const sortedWeights = [...weights].sort(
+        (a, b) => a.date.toDate() - b.date.toDate()
+    );
+    const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length -1].weight : null;
+
+    // warning if weight is too low
+
+    const weightTooLow =
+        latestWeight !== null &&
+        averageWeightLastThreeMonth !== null &&
+        latestWeight < averageWeightLastThreeMonth;
+
+    // -------------------------  
 
     const groupedWeights = weights.reduce((acc, weight) => {
         const date = weight.date.toDate();
@@ -50,13 +71,15 @@ export default function PetDetailPage() {
 
     return (
         <section className="page">
+            {weightTooLow && <WarningBadge petName={pet.name} ></WarningBadge>}
+
             <h1>{pet.name}</h1>
 
-            {weights.length >= 2 && <p>Durchschnittsgewicht: {averageWeightLastThreeMonth}g </p>}
+            {weights.length >= 2 && <p>Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
 
             {weights.length === 0 && <p>Noch keine Einträge</p>}
 
-            <WeightChart weights={weights} averageWeightLastThreeMonth={averageWeightLastThreeMonth} />
+            <WeightChart sortedWeights={sortedWeights} weightTooLow={weightTooLow} />
 
             <WeightTable groupedWeights={groupedWeights} />
         </section>

@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function WeightChart({ weights, averageWeightLastThreeMonth }) {
+export default function WeightChart({ sortedWeights, weightTooLow }) {
     const [selectedWeight, setSelectedWeight] = useState(null);
-    const [lineColor, setLineColor] = useState(null);
 
-    useEffect(() => {
-        async function getLineColor() {
-            if (!weights || weights.length <= 1) return;
-            const colorMainDark = getComputedStyle(document.documentElement).getPropertyValue("--main-dark").trim();
-            const colorWarning = getComputedStyle(document.documentElement).getPropertyValue("--warning").trim();
-            const weightTooLow = weights[0].weight <= averageWeightLastThreeMonth;
-            weightTooLow ? setLineColor(colorWarning) : setLineColor(colorMainDark);
-        }
-        getLineColor();
-    })
+    if (!sortedWeights || sortedWeights.length <= 1) return <br />;
 
-    if (!weights || weights.length <= 1) return <br />;
+    // line color depending on weight
 
-    const sortedWeights = [...weights].sort(
-        (a, b) => a.date.toDate() - b.date.toDate()
-    );
+    const colorMainDark = getComputedStyle(document.documentElement)
+        .getPropertyValue("--main-dark")
+        .trim();
+    const colorWarning = getComputedStyle(document.documentElement)
+        .getPropertyValue("--warning")
+        .trim();
 
-    //x-axis
+    const lineColor = weightTooLow? colorWarning : colorMainDark;
+
+    // x-axis
+
     const dateValues = sortedWeights.map(w => {
         const date = w.date.toDate();
         return date.toLocaleDateString("de-DE", {
@@ -31,8 +27,11 @@ export default function WeightChart({ weights, averageWeightLastThreeMonth }) {
         });
     });
 
-    //y-axis
+    // y-axis
+
     const weightValues = sortedWeights.map(w => w.weight);
+
+    // chart-data
 
     const data = {
         labels: dateValues,
@@ -48,11 +47,15 @@ export default function WeightChart({ weights, averageWeightLastThreeMonth }) {
         ]
     };
 
+    // handle clicks on the chart
+
     const handleClick = (event, elements) => {
         if (!elements.length) return;
 
         setSelectedWeight(sortedWeights[elements[0].index]);
     };
+
+    // chart-options
 
     const options = {
         responsive: true,
