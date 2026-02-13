@@ -1,3 +1,4 @@
+import { useAuth } from "../../context/AuthContext";
 import "./HomePage.css"
 import PetCard from "../../components/common/PetCard/PetCard";
 import Overlay from "../../components/ui/Overlay/Overlay";
@@ -7,25 +8,32 @@ import { getAllPets } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
 
 export default function HomePage() {
+    const { authReady, user } = useAuth();
     const [pets, setPets] = useState(null);
     const [showAddWeight, setShowAddWeight] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
 
     useEffect(() => {
+        if (!authReady) return;
+
         async function fetchPets() {
             try {
                 const petsData = await getAllPets();
-            setPets(petsData);
+                setPets(petsData);
             }
-            catch {
-                setPets([]);
+            catch (error) {
+                setPets("error");
             }
         }
         fetchPets();
-    }, []);
+    }, [authReady]);
 
-    if (pets === null) {
+    if (!authReady || pets === null) {
         return <p>Lädt…</p>;
+    }
+
+    if (pets === "error") {
+        return <p>Fehler beim Laden der Tiere.</p>;
     }
 
     if (pets.length === 0) {
