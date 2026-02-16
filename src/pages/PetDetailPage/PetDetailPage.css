@@ -1,3 +1,33 @@
+.pet-detail-page {
+    h1 {
+        padding-top: 8px;
+        font-size: 36px;
+    }
+
+    .pet-average-weight {
+        padding-top: 16px;
+    }
+}
+
+.warning-badge {
+    position: absolute;
+    right: 32px;
+    width: 40%;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--warning);
+    border-radius: 12px;
+
+    p {
+        margin: 0;
+        line-height: 1.1;
+        font-size: 14px;
+        text-align: end;
+    }
+}
+
 .pet-weights-overview {
     max-width: 560px;
     margin: 0 auto;

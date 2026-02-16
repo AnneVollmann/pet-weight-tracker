@@ -70,12 +70,12 @@ export default function PetDetailPage() {
     if (!pet) return <h1>Lade...</h1>;
 
     return (
-        <section className="page">
+        <section className="page pet-detail-page">
             {weightTooLow && <WarningBadge petName={pet.name} ></WarningBadge>}
 
             <h1>{pet.name}</h1>
 
-            {weights.length >= 2 && <p>Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
+            {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
 
             {weights.length === 0 && <p>Noch keine Einträge</p>}
 
