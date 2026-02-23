@@ -1,9 +1,22 @@
-import { useState } from "react";
-import { addWeight } from "../../../firebase/weights";
+import { useEffect, useState } from "react";
 
-export default function AddWeightForm({ onSubmit, onCancel }) {
+export default function AddWeightForm({ show, onSubmit, onCancel }) {
     const [date, setDate] = useState(new Date());
     const [weight, setWeight] = useState("");
+
+    useEffect(() => {
+        if (show) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [show]);
+
+    if (!show) return null;
 
     function handleSubmit(e) {
         e.preventDefault();

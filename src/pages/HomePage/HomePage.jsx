@@ -78,6 +78,7 @@ export default function HomePage() {
                         handleAddWeight(selectedPet, weight, date)
                     }
                     onCancel={() => setShowAddWeight(false)}
+                    show={showAddWeight}
                 />
             </Overlay>
         </section>
