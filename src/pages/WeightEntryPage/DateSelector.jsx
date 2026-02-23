@@ -41,6 +41,7 @@ export default function DateSelector({ setSelectedDateOption }) {
                     <p> Datum auswählen</p>
                     <input
                         type="date"
+                        className="form-control"
                         id="newWeightDate"
                         min="1900-01-01"
                         disabled={dateSelectionMode !== "selectDate"}

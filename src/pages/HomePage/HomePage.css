@@ -31,3 +31,16 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.homepage-add-weight-form {
+    padding: 0px 4px;
+
+    .mb-3 {
+        width: 100%;
+
+        input[type='number'],
+        input[type='date'] {
+            width: 50%;
+        }
+    }
+}

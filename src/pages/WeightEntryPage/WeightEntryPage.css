@@ -11,6 +11,10 @@
             margin: auto 0;
         }
     }
+
+    .form-control {
+        width: fit-content;
+    }
 }
 
 .weight-selector {

@@ -12,26 +12,26 @@ export default function AddWeightForm({ onSubmit, onCancel }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="homepage-add-weight-form" onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-check-label" htmlFor="selectDate">
-                    <p> Datum </p>
-                    <input
-                        type="date"
-                        id="newWeightDate"
-                        min="1900-01-01"
-                        onChange={e => {
-                            const [year, month, day] = e.target.value.split("-");
-                            setDate(new Date(year, month - 1, day));
-                        }}
-                    />
-                </label>
+                <label className="form-check-label" htmlFor="selectDate">Datum</label>
+                <input
+                    type="date"
+                    id="newWeightDate"
+                    min="1900-01-01"
+                    className="form-control"
+                    onChange={e => {
+                        const [year, month, day] = e.target.value.split("-");
+                        setDate(new Date(year, month - 1, day));
+                    }}
+                />
             </div>
 
             <div className="mb-3">
-                <label className="form-label">Gewicht</label>
+                <label className="form-label" htmlFor="selectWeight">Gewicht (in Gramm)</label>
                 <input
                     type="number"
+                    id="newWeightWeight"
                     pattern="\d*"
                     min="1"
                     max="999999"
