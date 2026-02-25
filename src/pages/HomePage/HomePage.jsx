@@ -1,6 +1,7 @@
 import "./HomePage.css"
 import PetCard from "../../components/common/PetCard/PetCard";
-import Overlay from "../../components/ui/Overlay/Overlay";
+// import Overlay from "../../components/ui/Overlay/Overlay";
+import { Modal } from "react-bootstrap";
 import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
@@ -24,17 +25,11 @@ export default function HomePage() {
         fetchPets();
     }, []);
 
-    if (pets === null) {
-        return <p>Lädt…</p>;
-    }
+    if (pets === null) return <p>Lädt…</p>;
 
-    if (pets === "error") {
-        return <p>Fehler beim Laden der Tiere.</p>;
-    }
+    if (pets === "error") return <p>Fehler beim Laden der Tiere.</p>;
 
-    if (pets.length === 0) {
-        return <p>Noch keine Tiere vorhanden</p>;
-    }
+    if (pets.length === 0) return <p>Noch keine Tiere vorhanden</p>;
 
     function handleOpenAddWeight(pet) {
         setSelectedPet(pet);
@@ -67,20 +62,27 @@ export default function HomePage() {
                     />
                 ))}
             </div>
-
-            <Overlay
+            <Modal
                 show={showAddWeight}
-                onClose={() => setShowAddWeight(false)}
-                title={selectedPet ? `Gewicht für ${selectedPet.name}` : "Gewicht hinzufügen"}
+                onHide={() => setShowAddWeight(false)}
+                centered
+                backdrop="true"
             >
-                <AddWeightForm
-                    onSubmit={(weight, date) =>
-                        handleAddWeight(selectedPet, weight, date)
-                    }
-                    onCancel={() => setShowAddWeight(false)}
-                    show={showAddWeight}
-                />
-            </Overlay>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        {selectedPet
+                            ? `Gewicht für ${selectedPet.name}`
+                            : "Gewicht hinzufügen"}
+                    </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <AddWeightForm
+                        onSubmit={(weight, date) => handleAddWeight(selectedPet, weight, date)}
+                        onCancel={() => setShowAddWeight(false)}
+                    />
+                </Modal.Body>
+            </Modal>
         </section>
     );
 }

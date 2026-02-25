@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 import "./lib/ChartSetup";
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = createRoot(document.getElementById("root"));
 root.render(
