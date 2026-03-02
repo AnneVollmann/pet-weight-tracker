@@ -21,11 +21,6 @@ export default function Toast({ show, message, onClose }) {
                     <div className="toast-body">
                         {message}
                     </div>
-                    <button
-                        type="button"
-                        className="btn-close me-2 m-auto"
-                        onClick={onClose}
-                    ></button>
                 </div>
             </div>
         </div>
