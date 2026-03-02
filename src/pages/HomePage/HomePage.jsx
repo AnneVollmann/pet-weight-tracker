@@ -1,6 +1,5 @@
 import "./HomePage.css"
 import PetCard from "../../components/common/PetCard/PetCard";
-// import Overlay from "../../components/ui/Overlay/Overlay";
 import { Modal } from "react-bootstrap";
 import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";

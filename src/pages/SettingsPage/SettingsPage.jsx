@@ -2,6 +2,7 @@ import { useState } from "react";
 import Overlay from "../../components/ui/Overlay/Overlay";
 import AddPetForm from "./AddPetForm/AddPetForm";
 import { addPet } from "../../firebase/pets";
+import { Modal } from "react-bootstrap";
 
 export default function SettingsPage() {
     const [showAddPet, setShowAddPet] = useState(false);
@@ -21,18 +22,27 @@ export default function SettingsPage() {
                 Tier hinzufügen
             </button>
 
-            <Overlay
+            <Modal
                 show={showAddPet}
-                onClose={() => setShowAddPet(false)}
-                title="Neues Tier hinzufügen"
+                onHide={() => setShowAddPet(false)}
+                centered
+                backdrop="true"
             >
-                <AddPetForm
-                    onSubmit={(img, name) =>
-                        handleAddPet(img, name)
-                    }
-                    onCancel={() => setShowAddPet(false)}
-                />
-            </Overlay>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <p>Neues Tier hinzufügen</p>
+                    </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <AddPetForm
+                        onSubmit={(img, name) =>
+                            handleAddPet(img, name)
+                        }
+                        onCancel={() => setShowAddPet(false)}
+                    />
+                </Modal.Body>
+            </Modal>
         </section>
     );
 }
