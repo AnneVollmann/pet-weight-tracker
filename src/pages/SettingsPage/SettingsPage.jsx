@@ -2,13 +2,20 @@ import { useState } from "react";
 import AddPetForm from "./AddPetForm/AddPetForm";
 import { addPet } from "../../firebase/pets";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
+import Toast from "../../components/ui/Toast/Toast";
 
 export default function SettingsPage() {
     const [showAddPet, setShowAddPet] = useState(false);
+    const [showToastAddPet, setShowToastAddPet] = useState(false);
 
     async function handleAddPet(img, name) {
-        await addPet(img, name);
-        setShowAddPet(false);
+        try {
+            await addPet(img, name);
+            setShowAddPet(false);
+            setShowToastAddPet(true);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -32,6 +39,11 @@ export default function SettingsPage() {
                     onCancel={() => setShowAddPet(false)}
                 />}
             </BasicModal>
+            <Toast
+                show={showToastAddPet}
+                message={"Neues Tier erfolgreich hinzugefügt!"}
+                onClose={() => setShowToastAddPet(false)}
+            />
         </section>
     );
 }
