@@ -5,12 +5,14 @@ import DateSelector from "./DateSelector";
 import PetSelector from "./PetSelector";
 import WeightSelector from "./WeightSelector";
 import { addWeight } from "../../firebase/weights";
+import Toast from "../../components/ui/Toast/Toast";
 
 export default function WeightEntryPage() {
     const [selectedDateOption, setSelectedDateOption] = useState(new Date());
     const [allPets, setAllPets] = useState([]);
     const [selectedPetIds, setSelectedPetIds] = useState([]);
     const [weights, setWeights] = useState({});   // { petId: weight }
+    const [showToastAddWeights, setShowToastAddWeights] = useState(false);
 
     useEffect(() => {
         getAllPets().then(setAllPets);
@@ -20,11 +22,16 @@ export default function WeightEntryPage() {
         if (allPets.length > 0 && selectedPetIds.length === 0) setSelectedPetIds(allPets.map(p => p.id))
     }, [allPets]);
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-          for (const petId of selectedPetIds) addWeight(petId, weights[petId], selectedDateOption)
-        setSelectedPetIds([]);
-        setWeights({});
+        try {
+            for (const petId of selectedPetIds) await addWeight(petId, weights[petId], selectedDateOption)
+            setSelectedPetIds([]);
+            setWeights({});
+            setShowToastAddWeights(true);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -46,6 +53,11 @@ export default function WeightEntryPage() {
                 />
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+            <Toast
+                show={showToastAddWeights}
+                message={"Gewichtseinträge erfolgreich hinzugefügt!"}
+                onClose={() => setShowToastAddWeights(false)}
+            />
         </section>
     );
 }
