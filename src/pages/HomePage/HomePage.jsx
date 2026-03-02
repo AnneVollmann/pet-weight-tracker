@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
+import Toast from "../../components/ui/Toast/Toast";
 
 export default function HomePage() {
     const [pets, setPets] = useState(null);
     const [showAddWeight, setShowAddWeight] = useState(false);
+    const [showToastAddWeight, setShowToastAddWeight] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
 
     useEffect(() => {
@@ -36,8 +38,13 @@ export default function HomePage() {
     }
 
     async function handleAddWeight(pet, weight, date) {
-        await addWeight(pet.id, weight, date);
-        setShowAddWeight(false);
+        try {
+            await addWeight(pet.id, weight, date);
+            setShowAddWeight(false);
+            setShowToastAddWeight(true);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -69,10 +76,18 @@ export default function HomePage() {
                     : "Gewicht hinzufügen"}
             >
                 {<AddWeightForm
-                        onSubmit={(weight, date) => handleAddWeight(selectedPet, weight, date)}
-                        onCancel={() => setShowAddWeight(false)}
-                    />}
+                    onSubmit={(weight, date) => handleAddWeight(selectedPet, weight, date)}
+                    onCancel={() => setShowAddWeight(false)}
+                />}
             </BasicModal>
+            <Toast
+                show={showToastAddWeight}
+                message={selectedPet
+                    ? `Neues Gewicht für ${selectedPet.name} hinzugefügt!`
+                    : "Neues Gewicht hinzugefügt!"
+                }
+                onClose={() => setShowToastAddWeight(false)}
+            />
         </section>
     );
 }

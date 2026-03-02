@@ -1,0 +1,3 @@
+.toast {
+    --bs-toast-bg: rgba(var(--bs-body-bg-rgb), 1);
+}
