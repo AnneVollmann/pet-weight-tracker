@@ -1,6 +1,5 @@
 import "./HomePage.css"
-import PetCard from "../../components/common/PetCard/PetCard";
-import { Modal } from "react-bootstrap";
+import PetCard from "./PetCard/PetCard";
 import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
