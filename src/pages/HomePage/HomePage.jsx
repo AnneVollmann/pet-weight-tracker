@@ -5,6 +5,7 @@ import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";
 import { getAllPets } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
+import BasicModal from "../../components/ui/BasicModal/BasicModal";
 
 export default function HomePage() {
     const [pets, setPets] = useState(null);
@@ -61,27 +62,18 @@ export default function HomePage() {
                     />
                 ))}
             </div>
-            <Modal
+            <BasicModal
                 show={showAddWeight}
                 onHide={() => setShowAddWeight(false)}
-                centered
-                backdrop="true"
+                title={selectedPet
+                    ? `Gewicht für ${selectedPet.name}`
+                    : "Gewicht hinzufügen"}
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        {selectedPet
-                            ? `Gewicht für ${selectedPet.name}`
-                            : "Gewicht hinzufügen"}
-                    </Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <AddWeightForm
+                {<AddWeightForm
                         onSubmit={(weight, date) => handleAddWeight(selectedPet, weight, date)}
                         onCancel={() => setShowAddWeight(false)}
-                    />
-                </Modal.Body>
-            </Modal>
+                    />}
+            </BasicModal>
         </section>
     );
 }
