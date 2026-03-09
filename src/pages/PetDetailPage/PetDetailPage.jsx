@@ -46,7 +46,7 @@ export default function PetDetailPage() {
     const sortedWeights = [...weights].sort(
         (a, b) => a.date.toDate() - b.date.toDate()
     );
-    const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length -1].weight : null;
+    const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length - 1].weight : null;
 
     // warning if weight is too low
 
@@ -72,13 +72,11 @@ export default function PetDetailPage() {
     return (
         <section className="page pet-detail-page">
             {weightTooLow && <WarningBadge petName={pet.name} ></WarningBadge>}
-
-            <h1>{pet.name}</h1>
-
-            {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
-
-            {weights.length === 0 && <p>Noch keine Einträge</p>}
-
+            <div className="pet-detail-overview">
+                <h1>{pet.name}</h1>
+                {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
+                {weights.length === 0 && <p>Noch keine Einträge</p>}
+            </div>
             <WeightChart sortedWeights={sortedWeights} weightTooLow={weightTooLow} />
 
             <WeightTable groupedWeights={groupedWeights} />
