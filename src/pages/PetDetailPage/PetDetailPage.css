@@ -1,9 +1,31 @@
 .pet-detail-page {
     padding: 24px 8px 72px 8px;
 
-    h1 {
-        padding-top: 8px;
-        font-size: 36px;
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        a {
+            height: 40px;
+            aspect-ratio: 1;
+
+            .btn-back {
+                width: 100%;
+                aspect-ratio: 1;
+                background-image: url(../../../public/assets/icons/arrow-left-circle.svg);
+
+                &:hover {
+                    background-image: url(../../../public/assets/icons/arrow-left-circle-fill.svg);
+                }
+            }
+
+        }
+
+        h1 {
+            padding-top: 16px;
+            font-size: 36px;
+        }
     }
 
     .pet-average-weight {

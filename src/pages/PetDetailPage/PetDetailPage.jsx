@@ -1,5 +1,5 @@
 import "./PetDetailPage.css"
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
 import { getWeightsForPet } from "../../firebase/weights";
@@ -73,7 +73,12 @@ export default function PetDetailPage() {
         <section className="page pet-detail-page">
             {weightTooLow && <WarningBadge petName={pet.name} ></WarningBadge>}
             <div className="pet-detail-overview">
-                <h1>{pet.name}</h1>
+                <div className="header">
+                    <Link to="/">
+                        <button type="button" className="btn-back btn" />
+                    </Link>
+                    <h1>{pet.name}</h1>
+                </div>
                 {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
                 {weights.length === 0 && <p>Noch keine Einträge</p>}
             </div>
