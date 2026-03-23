@@ -5,6 +5,7 @@ import DateSelector from "./DateSelector";
 import PetSelector from "./PetSelector";
 import WeightSelector from "./WeightSelector";
 import { addWeight } from "../../firebase/weights";
+import { updatePetTimestamp } from "../../firebase/pets";
 import Toast from "../../components/ui/Toast/Toast";
 
 export default function WeightEntryPage() {
@@ -25,7 +26,8 @@ export default function WeightEntryPage() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            for (const petId of selectedPetIds) await addWeight(petId, weights[petId], selectedDateOption)
+            for (const petId of selectedPetIds) await addWeight(petId, weights[petId], selectedDateOption);
+            for (const petId of selectedPetIds) await updatePetTimestamp(petId)
             setSelectedPetIds([]);
             setWeights({});
             setShowToastAddWeights(true);
