@@ -32,6 +32,10 @@ export default function HomePage() {
 
     if (pets.length === 0) return <p>Noch keine Tiere vorhanden</p>;
 
+    const sortedPets = [...pets].sort(
+        (a, b) => b.lastUpdated.toDate() - a.lastUpdated.toDate()
+    );
+
     function handleOpenAddWeight(pet) {
         setSelectedPet(pet);
         setShowAddWeight(true);
@@ -60,7 +64,7 @@ export default function HomePage() {
                 </div>
             </div>
             <div className='pets-list'>
-                {pets.map((pet) => (
+                {sortedPets.map((pet) => (
                     <PetCard
                         key={pet.id}
                         pet={pet}
