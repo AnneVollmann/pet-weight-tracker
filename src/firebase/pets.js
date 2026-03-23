@@ -1,5 +1,5 @@
 import { db } from "../lib/Firebase";
-import { collection, getDocs, getDoc, doc, addDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 export async function getAllPets() {
   const snapshot = await getDocs(collection(db, "pets"));
@@ -17,15 +17,21 @@ export async function getPetById(petId) {
   }
 }
 
-export async function addPet(img, name) {
-    try {
-        const docRef = await addDoc(collection(db, "pets"), {
-          img,
-          name
-        });
-        return docRef.id;
-    } catch (error) {
-        console.error("Fehler beim Hinzufügen von", name);
-        throw error;
-    }
+export async function addPet(img, name, lastUpdated = serverTimestamp()) {
+  try {
+    const petRef = await addDoc(collection(db, "pets"), {
+      img,
+      name,
+      lastUpdated
+    });
+    return petRef.id;
+  } catch (error) {
+    console.error("Fehler beim Hinzufügen von", name);
+    throw error;
+  }
+}
+
+export async function updatePetTimestamp(petId) {
+  const petRef = doc(db, "pets", petId);
+  await updateDoc(petRef, { lastUpdated: serverTimestamp() })
 }
