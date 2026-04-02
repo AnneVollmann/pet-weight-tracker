@@ -8,8 +8,8 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
 
     // visible weights
 
-    const numberOfVisibleWeights = sortedWeights.length <= 5 ? sortedWeights.length : 5;
-    const visibleWeights = sortedWeights.slice(-5);
+    const numberOfVisibleWeights = sortedWeights.length <= 8 ? sortedWeights.length : 8;
+    const visibleWeights = sortedWeights.slice(- numberOfVisibleWeights);
 
     // line color depending on weight
 
