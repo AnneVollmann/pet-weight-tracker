@@ -6,6 +6,11 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
 
     if (!sortedWeights || sortedWeights.length <= 1) return <br />;
 
+    // visible weights
+
+    const numberOfVisibleWeights = sortedWeights.length <= 5 ? sortedWeights.length : 5;
+    const visibleWeights = sortedWeights.slice(-5);
+
     // line color depending on weight
 
     const colorMainDark = getComputedStyle(document.documentElement)
@@ -15,21 +20,22 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
         .getPropertyValue("--warning")
         .trim();
 
-    const lineColor = weightTooLow? colorWarning : colorMainDark;
+    const lineColor = weightTooLow ? colorWarning : colorMainDark;
 
     // x-axis
 
-    const dateValues = sortedWeights.map(w => {
+    const dateValues = visibleWeights.map(w => {
         const date = w.date.toDate();
         return date.toLocaleDateString("de-DE", {
-            month: "short",
-            year: "2-digit"
+            day: "2-digit",
+            month: "2-digit",
+            // year: "2-digit"
         });
     });
 
     // y-axis
 
-    const weightValues = sortedWeights.map(w => w.weight);
+    const weightValues = visibleWeights.map(w => w.weight);
 
     // chart-data
 
@@ -51,8 +57,9 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
 
     const handleClick = (event, elements) => {
         if (!elements.length) return;
+        let weightIndex = sortedWeights.length - numberOfVisibleWeights + elements[0].index;
 
-        setSelectedWeight(sortedWeights[elements[0].index]);
+        setSelectedWeight(sortedWeights[weightIndex]);
     };
 
     // chart-options
