@@ -2,7 +2,7 @@ import "./HomePage.css"
 import PetCard from "./PetCard/PetCard";
 import AddWeightForm from "./AddWeightForm/AddWeightForm";
 import { useEffect, useState } from "react";
-import { getAllPets } from "../../firebase/pets";
+import { getAllPets, updatePetTimestamp } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
 import Toast from "../../components/ui/Toast/Toast";
@@ -44,6 +44,7 @@ export default function HomePage() {
     async function handleAddWeight(pet, weight, date) {
         try {
             await addWeight(pet.id, weight, date);
+            await updatePetTimestamp(pet.id);
             setShowAddWeight(false);
             setShowToastAddWeight(true);
         } catch (error) {

@@ -27,7 +27,7 @@ export default function WeightEntryPage() {
         e.preventDefault();
         try {
             for (const petId of selectedPetIds) await addWeight(petId, weights[petId], selectedDateOption);
-            for (const petId of selectedPetIds) await updatePetTimestamp(petId)
+            for (const petId of selectedPetIds) await updatePetTimestamp(petId);
             setSelectedPetIds([]);
             setWeights({});
             setShowToastAddWeights(true);
