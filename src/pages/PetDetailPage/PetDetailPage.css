@@ -56,6 +56,13 @@
     }
 }
 
+.weight-chart {
+    position: sticky;
+    top: 16px;
+    min-height: 222px;
+    background-color: var(--background);
+}
+
 .pet-weights-overview {
     padding: 0px 24px 12px 24px;
     max-width: 560px;

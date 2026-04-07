@@ -74,7 +74,7 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
         onClick: handleClick
     };
 
-    return <section>
+    return <section className="weight-chart">
         <Line data={data} options={options} />
         <p>
             {selectedWeight === null ? (
