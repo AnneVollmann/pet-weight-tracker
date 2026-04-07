@@ -11,6 +11,7 @@ export default function PetDetailPage() {
     const { id } = useParams();
     const [pet, setPet] = useState(null);
     const [weights, setWeights] = useState([]);
+    const [periodEndDate, setPeriodEndDate] = useState(null);
     const [selectedWeight, setSelectedWeight] = useState(null);
 
     useEffect(() => {
@@ -24,14 +25,21 @@ export default function PetDetailPage() {
         fetchData();
     }, [id]);
 
-
     // visible weights
 
     const sortedWeights = [...weights].sort(
         (a, b) => a.date.toDate() - b.date.toDate()
     );
+    const effectivePeriodEndDate =
+        periodEndDate ??
+        (sortedWeights.length > 0
+            ? sortedWeights[sortedWeights.length - 1].date.toDate()
+            : null);
+    const weightsUntilPeriodEndDate = effectivePeriodEndDate
+        ? sortedWeights.filter(w => w.date.toDate() <= effectivePeriodEndDate)
+        : [];
     const numberOfVisibleWeights = sortedWeights.length <= 8 ? sortedWeights.length : 8;
-    const visibleWeights = sortedWeights.slice(- numberOfVisibleWeights);
+    const visibleWeights = weightsUntilPeriodEndDate.slice(- numberOfVisibleWeights);
 
     // average weight of the period shown
 
@@ -39,11 +47,11 @@ export default function PetDetailPage() {
 
     if (visibleWeights.length > 0) {
         const periodStartDate = visibleWeights[0].date.toDate();
-        const periodEndWeight = visibleWeights[numberOfVisibleWeights - 1].date.toDate();
-        
+        // const periodEndDate = visibleWeights[numberOfVisibleWeights - 1].date.toDate();
+
         const periodWeights = weights.filter(w => {
             const date = w.date.toDate();
-            return date >= periodStartDate && date <= periodEndWeight;
+            return date >= periodStartDate && date <= periodEndDate;
         });
 
         periodAverageWeight =
@@ -63,7 +71,7 @@ export default function PetDetailPage() {
         periodAverageWeight !== null &&
         latestWeight < periodAverageWeight;
 
-    // -------------------------  
+    // grouped weights 
 
     const groupedWeights = weights.reduce((acc, weight) => {
         const date = weight.date.toDate();
@@ -117,7 +125,10 @@ export default function PetDetailPage() {
                 </p>
             </div>
 
-            <WeightTable groupedWeights={groupedWeights} />
+            <WeightTable
+                groupedWeights={groupedWeights}
+                onSelectPeriodEndDate={setPeriodEndDate}
+            />
         </section>
     );
 }
