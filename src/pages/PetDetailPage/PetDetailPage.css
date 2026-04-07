@@ -57,10 +57,15 @@
 }
 
 .weight-chart {
+    height: 224px;
+    padding: 12px 0;
     position: sticky;
-    top: 16px;
-    min-height: 222px;
+    top: 0px;
     background-color: var(--background);
+}
+
+.selected-weight {
+    padding: 0 24px;
 }
 
 .pet-weights-overview {

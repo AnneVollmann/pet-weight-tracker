@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function WeightChart({ sortedWeights, weightTooLow }) {
-    const [selectedWeight, setSelectedWeight] = useState(null);
+export default function WeightChart({ sortedWeights, weightTooLow, onSelectWeight }) {
 
     if (!sortedWeights || sortedWeights.length <= 1) return <br />;
 
@@ -59,7 +57,7 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
         if (!elements.length) return;
         let weightIndex = sortedWeights.length - numberOfVisibleWeights + elements[0].index;
 
-        setSelectedWeight(sortedWeights[weightIndex]);
+        onSelectWeight(sortedWeights[weightIndex]);
     };
 
     // chart-options
@@ -76,19 +74,5 @@ export default function WeightChart({ sortedWeights, weightTooLow }) {
 
     return <section className="weight-chart">
         <Line data={data} options={options} />
-        <p>
-            {selectedWeight === null ? (
-                "\u00A0"
-            ) : (
-                <>
-                    {selectedWeight.date.toDate().toLocaleDateString("de-DE", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                    })}:{" "}
-                    {selectedWeight.weight} g
-                </>
-            )}
-        </p>
     </section>;
 }

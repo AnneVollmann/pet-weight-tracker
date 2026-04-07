@@ -11,6 +11,7 @@ export default function PetDetailPage() {
     const { id } = useParams();
     const [pet, setPet] = useState(null);
     const [weights, setWeights] = useState([]);
+    const [selectedWeight, setSelectedWeight] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -71,7 +72,9 @@ export default function PetDetailPage() {
 
     return (
         <section className="page pet-detail-page">
+
             {weightTooLow && <WarningBadge petName={pet.name} ></WarningBadge>}
+
             <div className="pet-detail-overview">
                 <div className="header">
                     <Link to="/">
@@ -82,7 +85,27 @@ export default function PetDetailPage() {
                 {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
                 {weights.length === 0 && <p>Noch keine Einträge</p>}
             </div>
-            <WeightChart sortedWeights={sortedWeights} weightTooLow={weightTooLow} />
+
+            <WeightChart
+                sortedWeights={sortedWeights}
+                weightTooLow={weightTooLow}
+                onSelectWeight={setSelectedWeight}
+            />
+
+            <p className="selected-weight">
+                {selectedWeight === null ? (
+                    "\u00A0"
+                ) : (
+                    <>
+                        {selectedWeight.date.toDate().toLocaleDateString("de-DE", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                        })}:{" "}
+                        {selectedWeight.weight} g
+                    </>
+                )}
+            </p>
 
             <WeightTable groupedWeights={groupedWeights} />
         </section>
