@@ -24,37 +24,44 @@ export default function PetDetailPage() {
         fetchData();
     }, [id]);
 
-    // average weight of the last three months
 
-    const now = new Date();
-    const threeMonthAgo = new Date()
-    threeMonthAgo.setMonth(now.getMonth() - 3);
-
-    const weightsLastThreeMonth = weights.filter(w => {
-        const date = w.date.toDate();
-        return date >= threeMonthAgo && date <= now;
-    })
-    const averageWeightLastThreeMonth =
-        weightsLastThreeMonth.length === 0
-            ? null
-            : Math.round(
-                weightsLastThreeMonth.reduce((sum, w) => Number(sum) + Number(w.weight), 0) /
-                Number(weightsLastThreeMonth.length)
-            );
-
-    // current weight (latest entry)
+    // visible weights
 
     const sortedWeights = [...weights].sort(
         (a, b) => a.date.toDate() - b.date.toDate()
     );
-    const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length - 1].weight : null;
+    const numberOfVisibleWeights = sortedWeights.length <= 8 ? sortedWeights.length : 8;
+    const visibleWeights = sortedWeights.slice(- numberOfVisibleWeights);
+
+    // average weight of the period shown
+
+    let periodAverageWeight = null;
+
+    if (visibleWeights.length > 0) {
+        const periodStartDate = visibleWeights[0].date.toDate();
+        const periodEndWeight = visibleWeights[numberOfVisibleWeights - 1].date.toDate();
+        
+        const periodWeights = weights.filter(w => {
+            const date = w.date.toDate();
+            return date >= periodStartDate && date <= periodEndWeight;
+        });
+
+        periodAverageWeight =
+            periodWeights.length === 0
+                ? null
+                : Math.round(
+                    periodWeights.reduce((sum, w) => Number(sum) + Number(w.weight), 0) /
+                    periodWeights.length
+                );
+    }
 
     // warning if weight is too low
 
+    const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length - 1].weight : null;
     const weightTooLow =
         latestWeight !== null &&
-        averageWeightLastThreeMonth !== null &&
-        latestWeight < averageWeightLastThreeMonth;
+        periodAverageWeight !== null &&
+        latestWeight < periodAverageWeight;
 
     // -------------------------  
 
@@ -82,30 +89,33 @@ export default function PetDetailPage() {
                     </Link>
                     <h1>{pet.name}</h1>
                 </div>
-                {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {averageWeightLastThreeMonth} g </p>}
+                {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeight} g </p>}
                 {weights.length === 0 && <p>Noch keine Einträge</p>}
             </div>
 
-            <WeightChart
-                sortedWeights={sortedWeights}
-                weightTooLow={weightTooLow}
-                onSelectWeight={setSelectedWeight}
-            />
+            <div className="weight-chart">
+                <WeightChart
+                    sortedWeights={sortedWeights}
+                    visibleWeights={visibleWeights}
+                    weightTooLow={weightTooLow}
+                    onSelectWeight={setSelectedWeight}
+                />
 
-            <p className="selected-weight">
-                {selectedWeight === null ? (
-                    "\u00A0"
-                ) : (
-                    <>
-                        {selectedWeight.date.toDate().toLocaleDateString("de-DE", {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                        })}:{" "}
-                        {selectedWeight.weight} g
-                    </>
-                )}
-            </p>
+                <p className="selected-weight">
+                    {selectedWeight === null ? (
+                        "\u00A0"
+                    ) : (
+                        <>
+                            {selectedWeight.date.toDate().toLocaleDateString("de-DE", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                            })}:{" "}
+                            {selectedWeight.weight} g
+                        </>
+                    )}
+                </p>
+            </div>
 
             <WeightTable groupedWeights={groupedWeights} />
         </section>

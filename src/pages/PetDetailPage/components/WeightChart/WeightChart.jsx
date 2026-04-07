@@ -1,13 +1,8 @@
 import { Line } from "react-chartjs-2";
 
-export default function WeightChart({ sortedWeights, weightTooLow, onSelectWeight }) {
+export default function WeightChart({ sortedWeights, visibleWeights, weightTooLow, onSelectWeight }) {
 
     if (!sortedWeights || sortedWeights.length <= 1) return <br />;
-
-    // visible weights
-
-    const numberOfVisibleWeights = sortedWeights.length <= 8 ? sortedWeights.length : 8;
-    const visibleWeights = sortedWeights.slice(- numberOfVisibleWeights);
 
     // line color depending on weight
 
@@ -55,7 +50,7 @@ export default function WeightChart({ sortedWeights, weightTooLow, onSelectWeigh
 
     const handleClick = (event, elements) => {
         if (!elements.length) return;
-        let weightIndex = sortedWeights.length - numberOfVisibleWeights + elements[0].index;
+        let weightIndex = sortedWeights.length - visibleWeights.length + elements[0].index;
 
         onSelectWeight(sortedWeights[weightIndex]);
     };
@@ -72,7 +67,7 @@ export default function WeightChart({ sortedWeights, weightTooLow, onSelectWeigh
         onClick: handleClick
     };
 
-    return <section className="weight-chart">
+    return <section>
         <Line data={data} options={options} />
     </section>;
 }
