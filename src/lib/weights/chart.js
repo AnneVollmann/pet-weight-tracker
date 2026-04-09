@@ -54,9 +54,8 @@ export function getChartData(visibleWeights, lineColor) {
     };
 }
 
-export function handleChartClick(event, elements, sortedWeights, visibleWeights, onSelectWeight) {
+export function handleChartClick(event, elements, visibleWeights, onSelectWeight) {
     if (!elements.length) return;
-    
-    const weightIndex = sortedWeights.length - visibleWeights.length + elements[0].index;
-    onSelectWeight(sortedWeights[weightIndex]);
+    const clickedWeight = visibleWeights[elements[0].index];
+    onSelectWeight(clickedWeight);
 }
