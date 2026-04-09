@@ -35,7 +35,7 @@ export default function PetDetailPage() {
         setPeriodEndDate(latestDate);
     }, [weights]);
 
-    const weightWarning = getWeightWarning(sortedWeights);
+    const showWeightWarning = getWeightWarning(sortedWeights);
 
     const visibleWeights = getWeightsInPeriod(sortedWeights, {
         endDate: periodEndDate,
@@ -61,7 +61,7 @@ export default function PetDetailPage() {
     return (
         <section className="page pet-detail-page">
 
-            {weightWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
+            {showWeightWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
 
             <div className="pet-detail-overview">
                 <div className="header">
@@ -78,7 +78,7 @@ export default function PetDetailPage() {
                 <WeightChart
                     sortedWeights={sortedWeights}
                     visibleWeights={visibleWeights}
-                    showWarning={weightWarning}
+                    weightWarningShown={showWeightWarning}
                     onSelectWeight={setSelectedWeight}
                 />
 

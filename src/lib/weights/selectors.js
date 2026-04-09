@@ -14,9 +14,5 @@ export function getWeightsInPeriod(sortedWeights, { startDate = null, endDate = 
         return true;
     })
 
-    if (limit) {
-        filteredWeights = filteredWeights.slice(-limit);
-    }
-
-    return filteredWeights;
+    return limit ? filteredWeights.slice(-limit) : filteredWeights;
 }
