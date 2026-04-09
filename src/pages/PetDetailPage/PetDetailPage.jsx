@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPetById } from "../../firebase/pets";
 import { getWeightsForPet } from "../../firebase/weights";
+import { getAverageWeightValue, getDate, getWeightWarning } from "../../lib/weights/calculations";
+import { getSortedWeights, getWeightsInPeriod } from "../../lib/weights/selectors"
 import WeightTable from "./components/WeightTable/WeightTable";
 import WeightChart from "./components/WeightChart/WeightChart";
 import WarningBadge from "./components/WarningBadge/WarningBadge";
@@ -25,54 +27,25 @@ export default function PetDetailPage() {
         fetchData();
     }, [id]);
 
-    // visible weights
+    const sortedWeights = getSortedWeights(weights);
 
-    const sortedWeights = [...weights].sort(
-        (a, b) => a.date.toDate() - b.date.toDate()
-    );
-    const effectivePeriodEndDate =
-        periodEndDate ??
-        (sortedWeights.length > 0
-            ? sortedWeights[sortedWeights.length - 1].date.toDate()
-            : null);
-    const weightsUntilPeriodEndDate = effectivePeriodEndDate
-        ? sortedWeights.filter(w => w.date.toDate() <= effectivePeriodEndDate)
-        : [];
-    const numberOfVisibleWeights = sortedWeights.length <= 8 ? sortedWeights.length : 8;
-    const visibleWeights = weightsUntilPeriodEndDate.slice(- numberOfVisibleWeights);
+    //initially sets the periodEndDate to the latestDate
+    useEffect(() => {
+        const latestDate = getDate(sortedWeights, "latest");
+        setPeriodEndDate(latestDate);
+    }, [weights]);
+
+    const weightWarning = getWeightWarning(sortedWeights);
+
+    const visibleWeights = getWeightsInPeriod(sortedWeights, {
+        endDate: periodEndDate,
+        limit: 8
+    });
 
     // average weight of the period shown
-
-    let periodAverageWeight = null;
-
-    if (visibleWeights.length > 0) {
-        const periodStartDate = visibleWeights[0].date.toDate();
-        // const periodEndDate = visibleWeights[numberOfVisibleWeights - 1].date.toDate();
-
-        const periodWeights = weights.filter(w => {
-            const date = w.date.toDate();
-            return date >= periodStartDate && date <= periodEndDate;
-        });
-
-        periodAverageWeight =
-            periodWeights.length === 0
-                ? null
-                : Math.round(
-                    periodWeights.reduce((sum, w) => Number(sum) + Number(w.weight), 0) /
-                    periodWeights.length
-                );
-    }
-
-    // warning if weight is too low
-
-    const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length - 1].weight : null;
-    const showWarning =
-        latestWeight !== null &&
-        periodAverageWeight !== null &&
-        latestWeight < periodAverageWeight;
+    const periodAverageWeightValue = getAverageWeightValue(visibleWeights);
 
     // grouped weights 
-
     const groupedWeights = weights.reduce((acc, weight) => {
         const date = weight.date.toDate();
         const year = date.getFullYear();
@@ -88,7 +61,7 @@ export default function PetDetailPage() {
     return (
         <section className="page pet-detail-page">
 
-            {showWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
+            {weightWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
 
             <div className="pet-detail-overview">
                 <div className="header">
@@ -97,7 +70,7 @@ export default function PetDetailPage() {
                     </Link>
                     <h1>{pet.name}</h1>
                 </div>
-                {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeight} g </p>}
+                {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeightValue} g </p>}
                 {weights.length === 0 && <p>Noch keine Einträge</p>}
             </div>
 
@@ -105,7 +78,7 @@ export default function PetDetailPage() {
                 <WeightChart
                     sortedWeights={sortedWeights}
                     visibleWeights={visibleWeights}
-                    showWarning={showWarning}
+                    showWarning={weightWarning}
                     onSelectWeight={setSelectedWeight}
                 />
 

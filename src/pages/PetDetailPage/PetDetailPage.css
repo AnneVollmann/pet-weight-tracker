@@ -57,7 +57,7 @@
 }
 
 .weight-chart {
-    height: 240px;
+    min-height: 240px;
     padding: 12px 0;
     position: sticky;
     top: 0px;
