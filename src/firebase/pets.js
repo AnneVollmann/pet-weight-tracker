@@ -1,4 +1,4 @@
-import { db } from "../lib/Firebase";
+import { db } from "./config";
 import { collection, getDocs, getDoc, doc, addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 export async function getAllPets() {

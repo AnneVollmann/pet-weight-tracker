@@ -66,7 +66,7 @@ export default function PetDetailPage() {
     // warning if weight is too low
 
     const latestWeight = sortedWeights.length > 0 ? sortedWeights[sortedWeights.length - 1].weight : null;
-    const weightTooLow =
+    const showWarning =
         latestWeight !== null &&
         periodAverageWeight !== null &&
         latestWeight < periodAverageWeight;
@@ -88,7 +88,7 @@ export default function PetDetailPage() {
     return (
         <section className="page pet-detail-page">
 
-            {weightTooLow && <WarningBadge petName={pet.name} ></WarningBadge>}
+            {showWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
 
             <div className="pet-detail-overview">
                 <div className="header">
@@ -105,7 +105,7 @@ export default function PetDetailPage() {
                 <WeightChart
                     sortedWeights={sortedWeights}
                     visibleWeights={visibleWeights}
-                    weightTooLow={weightTooLow}
+                    showWarning={showWarning}
                     onSelectWeight={setSelectedWeight}
                 />
 

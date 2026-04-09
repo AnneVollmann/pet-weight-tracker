@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2";
 
-export default function WeightChart({ sortedWeights, visibleWeights, weightTooLow, onSelectWeight }) {
+export default function WeightChart({ sortedWeights, visibleWeights, showWarning, onSelectWeight }) {
 
     if (!sortedWeights || sortedWeights.length <= 1) return <br />;
     if (!visibleWeights || visibleWeights.length === 0) return <br />;
@@ -14,7 +14,7 @@ export default function WeightChart({ sortedWeights, visibleWeights, weightTooLo
         .getPropertyValue("--warning")
         .trim();
 
-    const lineColor = weightTooLow ? colorWarning : colorMainDark;
+    const lineColor = showWarning ? colorWarning : colorMainDark;
 
     // x-axis values
 
