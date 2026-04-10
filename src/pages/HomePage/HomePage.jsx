@@ -6,6 +6,7 @@ import { getAllPets, updatePetTimestamp } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
 import Toast from "../../components/ui/Toast/Toast";
+import CategorySelector from "./CategorySelector/CategorySelector";
 
 export default function HomePage() {
     const [pets, setPets] = useState(null);
@@ -64,6 +65,9 @@ export default function HomePage() {
                     </h1>
                 </div>
             </div>
+
+            <CategorySelector></CategorySelector>
+
             <div className='pets-list'>
                 {sortedPets.map((pet) => (
                     <PetCard
@@ -73,6 +77,7 @@ export default function HomePage() {
                     />
                 ))}
             </div>
+
             <BasicModal
                 show={showAddWeight}
                 onHide={() => setShowAddWeight(false)}
@@ -85,6 +90,7 @@ export default function HomePage() {
                     onCancel={() => setShowAddWeight(false)}
                 />}
             </BasicModal>
+
             <Toast
                 show={showToastAddWeight}
                 message={selectedPet

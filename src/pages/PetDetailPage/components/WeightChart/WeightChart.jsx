@@ -31,7 +31,7 @@ export default function WeightChart({ sortedWeights, visibleWeights, weightWarni
                 max: yAxisConfiguration.maxWeight
             }
         },
-        onClick: (event, elements) => handleChartClick(event, elements, sortedWeights, visibleWeights, onSelectWeight)
+        onClick: (event, elements) => handleChartClick(event, elements, visibleWeights, onSelectWeight)
     };
 
     return <section>
