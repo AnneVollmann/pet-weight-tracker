@@ -29,7 +29,7 @@ export default function AddPetForm({ onSubmit, onCancel }) {
                     value={img}
                     onChange={(e) => setImg(e.target.value)}
                 >
-                    {[1, 2, 3].map(n => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
                         <option key={n} value={Number(n)}>{n}</option>
                     ))}
                 </select>
