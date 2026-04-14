@@ -17,10 +17,10 @@ export async function getPetById(petId) {
   }
 }
 
-export async function addPet(img, name, lastUpdated = serverTimestamp()) {
+export async function addPet(species, name, lastUpdated = serverTimestamp()) {
   try {
     const petRef = await addDoc(collection(db, "pets"), {
-      img,
+      species,
       name,
       lastUpdated
     });

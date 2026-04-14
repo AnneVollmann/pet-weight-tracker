@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { animalCategories } from "../../../constants/animalCategories";
 
 export default function AddPetForm({ onSubmit, onCancel }) {
-    const [img, setImg] = useState(1);
+    const [species, setSpecies] = useState("");
     const [name, setName] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
-        onSubmit(img, name);
+        onSubmit(species, name);
         onCancel();
     }
 
@@ -23,14 +24,14 @@ export default function AddPetForm({ onSubmit, onCancel }) {
             </div>
 
             <div className="mb-3">
-                <label className="form-label">img</label>
+                <label className="form-label">Tierart</label>
                 <select
                     className="form-select"
-                    value={img}
-                    onChange={(e) => setImg(e.target.value)}
+                    value={species}
+                    onChange={(e) => setSpecies(e.target.value)}
                 >
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
-                        <option key={n} value={Number(n)}>{n}</option>
+                    {animalCategories.map(species => (
+                        <option key={species.id} value={species.id}>{species.label}</option>
                     ))}
                 </select>
             </div>
