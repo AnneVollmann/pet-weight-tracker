@@ -10,6 +10,7 @@ import CategorySelector from "./CategorySelector/CategorySelector";
 
 export default function HomePage() {
     const [pets, setPets] = useState(null);
+    const [selectedSpecies, setSelectedSpecies] = useState(null);
     const [showAddWeight, setShowAddWeight] = useState(false);
     const [showToastAddWeight, setShowToastAddWeight] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
@@ -33,9 +34,14 @@ export default function HomePage() {
 
     if (pets.length === 0) return <p>Noch keine Tiere vorhanden</p>;
 
-    const sortedPets = [...pets].sort(
-        (a, b) => b.lastUpdated.toDate() - a.lastUpdated.toDate()
-    );
+    const visiblePets = [...pets]
+        .filter((pet) => {
+            if (selectedSpecies === null) return true;
+            return pet.species === selectedSpecies;
+        })
+        .sort(
+            (a, b) => b.lastUpdated.toDate() - a.lastUpdated.toDate()
+        );
 
     function handleOpenAddWeight(pet) {
         setSelectedPet(pet);
@@ -66,10 +72,12 @@ export default function HomePage() {
                 </div>
             </div>
 
-            <CategorySelector></CategorySelector>
+            <CategorySelector
+                selectedSpecies={selectedSpecies}
+                onSelectSpecies={setSelectedSpecies} />
 
             <div className='pets-list'>
-                {sortedPets.map((pet) => (
+                {visiblePets.map((pet) => (
                     <PetCard
                         key={pet.id}
                         pet={pet}

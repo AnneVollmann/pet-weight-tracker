@@ -1,14 +1,22 @@
 import { animalCategories } from "../../../constants/animalCategories";
 
-export default function CategorySelector() {
+export default function CategorySelector({ selectedSpecies, onSelectSpecies }) {
 
     return (
-        <ul className="nav nav-pills">
+        <nav className="nav nav-pills">
+            <a
+                className={`nav-link ${selectedSpecies === null ? "active" : ""}`}
+                onClick={() => onSelectSpecies(null)}>
+                Alle Tiere
+            </a>
             {animalCategories.map((category) => (
-                <li key={category.id} className="nav-item">
-                    <a className="nav-link">{category.label}</a>
-                </li>
+                <a
+                    className={`nav-link ${selectedSpecies === category.id ? "active" : ""}`}
+                    key={category.id}
+                    onClick={() => onSelectSpecies(category.id)}>
+                    {category.label}
+                </a>
             ))}
-        </ul>
+        </nav>
     );
 }
