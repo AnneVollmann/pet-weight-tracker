@@ -22,14 +22,26 @@
     }
 }
 
+.nav-link {
+    color: var(--main-dark) !important;
+
+    .animal-icon {
+        width: 48px;
+        aspect-ratio: 1;
+    }
+
+    &.active {
+        color: var(--white) !important;
+        background-color: var(--main-dark) !important;
+    }
+}
+
 .pets-list {
-    min-height: calc(100dvh - 48px);
     padding-top: 48px;
     gap: 16px;
     justify-self: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .homepage-add-weight-form {
