@@ -1,51 +1,47 @@
+header {
+    background-color: var(--light-gray);
+    padding: 24px 32px 8px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .logo-container {
     display: flex;
 
     .logo {
-        aspect-ratio: 1;
-        width: 50%;
+        width: 56px;
     }
+}
 
-    div {
-        width: 50%;
+.nav {
+    display: flex;
+
+    .nav-link {
+        min-width: 40px;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        color: var(--main-dark) !important;
 
-        p {
-            font-family: "RubikBubbles-Regular", sans-serif;
-            font-size: 40px;
-            line-height: 0.8;
-            font-weight: 700;
-            color: var(--main-dark);
+        .animal-icon {
+            width: 32px;
+            aspect-ratio: 1;
+        }
+
+        &.active {
+            color: var(--white) !important;
+            background-color: var(--main-dark) !important;
         }
     }
 }
 
-.nav-link {
-    min-width: 80px;
+.pets-list {
+    padding-top: 8px;
+    gap: 16px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    color: var(--main-dark) !important;
-
-    .animal-icon {
-        width: 48px;
-        aspect-ratio: 1;
-    }
-
-    &.active {
-        color: var(--white) !important;
-        background-color: var(--main-dark) !important;
-    }
-}
-
-.pets-list {
-    padding-top: 48px;
-    gap: 16px;
-    justify-self: center;
-    display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .homepage-add-weight-form {

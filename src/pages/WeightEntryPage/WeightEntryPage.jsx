@@ -38,28 +38,30 @@ export default function WeightEntryPage() {
 
     return (
         <section className="page">
-            <h1>Neue Gewichtseinträge hinzufügen</h1>
-            <form onSubmit={handleSubmit}>
-                <DateSelector
-                    setSelectedDateOption={setSelectedDateOption}
+            <div className="content">
+                <h1>Neue Gewichtseinträge hinzufügen</h1>
+                <form onSubmit={handleSubmit}>
+                    <DateSelector
+                        setSelectedDateOption={setSelectedDateOption}
+                    />
+                    <PetSelector
+                        selectedPetIds={selectedPetIds}
+                        setSelectedPetIds={setSelectedPetIds}
+                        allPets={allPets}
+                    />
+                    <WeightSelector
+                        selectedPetIds={selectedPetIds}
+                        weights={weights}
+                        setWeights={setWeights}
+                    />
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+                <Toast
+                    show={showToastAddWeights}
+                    message={"Gewichtseinträge erfolgreich hinzugefügt!"}
+                    onClose={() => setShowToastAddWeights(false)}
                 />
-                <PetSelector
-                    selectedPetIds={selectedPetIds}
-                    setSelectedPetIds={setSelectedPetIds}
-                    allPets={allPets}
-                />
-                <WeightSelector
-                    selectedPetIds={selectedPetIds}
-                    weights={weights}
-                    setWeights={setWeights}
-                />
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
-            <Toast
-                show={showToastAddWeights}
-                message={"Gewichtseinträge erfolgreich hinzugefügt!"}
-                onClose={() => setShowToastAddWeights(false)}
-            />
+            </div>
         </section>
     );
 }

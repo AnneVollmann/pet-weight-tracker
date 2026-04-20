@@ -19,31 +19,33 @@ export default function SettingsPage() {
     }
 
     return (
-        <section>
-            <h1>Einstellungen</h1>
-            <button
-                className="btn btn-primary"
-                onClick={() => setShowAddPet(true)}
-            >
-                Tier hinzufügen
-            </button>
-            <BasicModal
-                show={showAddPet}
-                onHide={() => setShowAddPet(false)}
-                title={"Neues Tier hinzufügen"}
-            >
-                {<AddPetForm
-                    onSubmit={(img, name) =>
-                        handleAddPet(img, name)
-                    }
-                    onCancel={() => setShowAddPet(false)}
-                />}
-            </BasicModal>
-            <Toast
-                show={showToastAddPet}
-                message={"Neues Tier erfolgreich hinzugefügt!"}
-                onClose={() => setShowToastAddPet(false)}
-            />
+        <section className="page">
+            <div className="content">
+                <h1>Einstellungen</h1>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => setShowAddPet(true)}
+                >
+                    Tier hinzufügen
+                </button>
+                <BasicModal
+                    show={showAddPet}
+                    onHide={() => setShowAddPet(false)}
+                    title={"Neues Tier hinzufügen"}
+                >
+                    {<AddPetForm
+                        onSubmit={(img, name) =>
+                            handleAddPet(img, name)
+                        }
+                        onCancel={() => setShowAddPet(false)}
+                    />}
+                </BasicModal>
+                <Toast
+                    show={showToastAddPet}
+                    message={"Neues Tier erfolgreich hinzugefügt!"}
+                    onClose={() => setShowToastAddPet(false)}
+                />
+            </div>
         </section>
     );
 }

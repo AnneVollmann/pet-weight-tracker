@@ -61,52 +61,47 @@ export default function HomePage() {
 
     return (
         <section className="page">
-            <div className="logo-container">
-                <img className="logo" src="./assets/img/logo.png" alt="logo" />
-                <div>
-                    <h1>
-                        <p>Pet</p>
-                        <p>Weight</p>
-                        <p>Tracker</p>
-                    </h1>
+            <header>
+                <h1> Pet Weight Tracker</h1>
+
+                <CategorySelector
+                    selectedSpecies={selectedSpecies}
+                    onSelectSpecies={setSelectedSpecies} />
+            </header>
+
+            <div className="content">
+                <div className='pets-list'>
+                    {visiblePets.map((pet) => (
+                        <PetCard
+                            key={pet.id}
+                            pet={pet}
+                            onAddWeight={handleOpenAddWeight}
+                        />
+                    ))}
                 </div>
+
+                <BasicModal
+                    show={showAddWeight}
+                    onHide={() => setShowAddWeight(false)}
+                    title={selectedPet
+                        ? `Gewicht für ${selectedPet.name}`
+                        : "Gewicht hinzufügen"}
+                >
+                    {<AddWeightForm
+                        onSubmit={(weight, date) => handleAddWeight(selectedPet, weight, date)}
+                        onCancel={() => setShowAddWeight(false)}
+                    />}
+                </BasicModal>
+
+                <Toast
+                    show={showToastAddWeight}
+                    message={selectedPet
+                        ? `Neues Gewicht für ${selectedPet.name} hinzugefügt!`
+                        : "Neues Gewicht hinzugefügt!"
+                    }
+                    onClose={() => setShowToastAddWeight(false)}
+                />
             </div>
-
-            <CategorySelector
-                selectedSpecies={selectedSpecies}
-                onSelectSpecies={setSelectedSpecies} />
-
-            <div className='pets-list'>
-                {visiblePets.map((pet) => (
-                    <PetCard
-                        key={pet.id}
-                        pet={pet}
-                        onAddWeight={handleOpenAddWeight}
-                    />
-                ))}
-            </div>
-
-            <BasicModal
-                show={showAddWeight}
-                onHide={() => setShowAddWeight(false)}
-                title={selectedPet
-                    ? `Gewicht für ${selectedPet.name}`
-                    : "Gewicht hinzufügen"}
-            >
-                {<AddWeightForm
-                    onSubmit={(weight, date) => handleAddWeight(selectedPet, weight, date)}
-                    onCancel={() => setShowAddWeight(false)}
-                />}
-            </BasicModal>
-
-            <Toast
-                show={showToastAddWeight}
-                message={selectedPet
-                    ? `Neues Gewicht für ${selectedPet.name} hinzugefügt!`
-                    : "Neues Gewicht hinzugefügt!"
-                }
-                onClose={() => setShowToastAddWeight(false)}
-            />
         </section>
     );
 }

@@ -1,4 +1,6 @@
 .pet-card {
+    width: 160px !important;
+
     .card-body {
         display: flex;
         justify-content: space-between;

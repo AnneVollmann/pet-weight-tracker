@@ -2,6 +2,7 @@
   --background: #f2f2f2;
   --white: #ffffff;
   --black: #241e12f2;
+  --light-gray: #f8f9fa;
   --gray: #a2a2a2;
   --main-light: #7597c5;
   --main-dark: #4f75b3;
@@ -31,8 +32,13 @@ main {
 }
 
 .page {
-  max-width: 100dvb;
-  padding: 24px 32px 72px 32px;
+  .content {
+    max-width: 100dvb;
+    padding: 24px 32px 72px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 button {
@@ -56,9 +62,11 @@ button {
 }
 
 h1 {
-  font-family: "RubikBubbles-Regular", sans-serif;
-  padding-bottom: 8px;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 32px;
   color: var(--main-dark);
+  margin: 0;
+  align-content: center;
 }
 
 h2 {
@@ -66,15 +74,15 @@ h2 {
 }
 
 @font-face {
-  font-family: "RubikBubbles-Regular";
-  src: url("../public/assets/fonts/RubikBubbles-Regular.ttf") format("truetype");
+  font-family: "Delius-Regular";
+  src: url("../public/assets/fonts/Delius-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Delius-Regular";
-  src: url("../public/assets/fonts/Delius-Regular.ttf") format("truetype");
+  font-family: "Inter-Bold";
+  src: url("../public/assets/fonts/Inter_28pt-Bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
