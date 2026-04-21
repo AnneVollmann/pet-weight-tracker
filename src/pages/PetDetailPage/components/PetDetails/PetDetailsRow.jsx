@@ -1,0 +1,56 @@
+import { useState } from "react";
+
+export default function PetDetailRow({ label, value, id }) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentInput, setCurrentInput] = useState(value);
+
+    function handleEdit() {
+        setIsEditing(true);
+        setCurrentInput(value);
+    }
+
+    function handleCancel() {
+        setIsEditing(false);
+        setCurrentInput(value);
+    }
+
+    return (
+        <div className="row">
+            <label htmlFor={id} className="col-sm-2 col-form-label">{label}</label>
+            <div className="col-sm-10">
+                {isEditing ? (
+                    <>
+                        <textarea
+                            type="text"
+                            className="form-control-plaintext"
+                            id={id}
+                            value={currentInput}
+                            onChange={(e) => setCurrentInput(e.target.value)}
+                        />
+                        <button
+                            onClick={handleCancel}
+                            type="button"
+                            className="btn btn-primary">
+                            X
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <p
+                            type="text"
+                            className="form-control-plaintext"
+                            id={id}>
+                            {value}
+                        </p>
+                        <button
+                            onClick={handleEdit}
+                            type="button"
+                            className="btn btn-primary">
+                            E
+                        </button>
+                    </>
+                )}
+            </div>
+        </div >
+    );
+}
