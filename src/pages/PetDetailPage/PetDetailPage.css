@@ -124,3 +124,37 @@
     }
 
 }
+
+.pet-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+
+        label {
+            min-width: 128px;
+            width: fit-content;
+        }
+
+        .col-sm-10 {
+            display: flex;
+            justify-content: flex-start;
+            flex: 1;
+            gap: 12px;
+
+            p {
+                max-height: 128px;
+                overflow-y: scroll;
+                padding-right: 2px;
+            }
+
+            button {
+                height: fit-content;
+            }
+        }
+    }
+}

@@ -8,6 +8,8 @@ import { getSortedWeights, getWeightsInPeriod } from "../../lib/weights/selector
 import WeightTable from "./components/WeightTable/WeightTable";
 import WeightChart from "./components/WeightChart/WeightChart";
 import WarningBadge from "./components/WarningBadge/WarningBadge";
+import BasicModal from "../../components/ui/BasicModal/BasicModal";
+import PetDetails from "./components/PetDetails/PetDetails";
 
 export default function PetDetailPage() {
     const { id } = useParams();
@@ -15,6 +17,7 @@ export default function PetDetailPage() {
     const [weights, setWeights] = useState([]);
     const [periodEndDate, setPeriodEndDate] = useState(null);
     const [selectedWeight, setSelectedWeight] = useState(null);
+    const [showPetDetails, setShowPetDetails] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -56,6 +59,10 @@ export default function PetDetailPage() {
         return acc;
     }, {});
 
+    function openPetDetails() {
+        console.log("a")
+    }
+
     if (!pet) return <h1>Lade...</h1>;
 
     return (
@@ -69,6 +76,11 @@ export default function PetDetailPage() {
                         <button type="button" className="btn-back btn" />
                     </Link>
                     <h1>{pet.name}</h1>
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setShowPetDetails(true);
+                    }} type="button" className="btn btn-primary">E</button>
                 </header>
                 {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeightValue} g </p>}
                 {weights.length === 0 && <p>Noch keine Einträge</p>}
@@ -102,6 +114,14 @@ export default function PetDetailPage() {
                 groupedWeights={groupedWeights}
                 onSelectPeriodEndDate={setPeriodEndDate}
             />
+
+            <BasicModal
+                show={showPetDetails}
+                onHide={() => setShowPetDetails(false)}
+                title={pet.name}
+            >
+                <PetDetails></PetDetails>
+            </BasicModal>
         </section>
     );
 }
