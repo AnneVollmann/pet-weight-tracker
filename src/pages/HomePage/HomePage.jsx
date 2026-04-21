@@ -60,7 +60,7 @@ export default function HomePage() {
     }
 
     return (
-        <section className="page">
+        <section className="page home-page">
             <header>
                 <h1> Pet Weight Tracker</h1>
 

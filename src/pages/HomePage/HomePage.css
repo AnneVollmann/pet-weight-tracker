@@ -1,58 +1,61 @@
-header {
-    background-color: var(--light-gray);
-    padding: 24px 32px 8px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.logo-container {
-    display: flex;
-
-    .logo {
-        width: 56px;
+.home-page {
+    header {
+        background-color: var(--light-gray);
+        padding: 24px 32px 8px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 16px;
     }
-}
 
-.nav {
-    display: flex;
+    .logo-container {
+        display: flex;
 
-    .nav-link {
-        min-width: 40px;
+        .logo {
+            width: 56px;
+        }
+    }
+
+    .nav {
+        display: flex;
+
+        .nav-link {
+            min-width: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--main-dark) !important;
+
+            .animal-icon {
+                width: 32px;
+                aspect-ratio: 1;
+            }
+
+            &.active {
+                color: var(--white) !important;
+                background-color: var(--main-dark) !important;
+            }
+        }
+    }
+
+    .pets-list {
+        padding-top: 8px;
+        gap: 16px;
         display: flex;
         justify-content: center;
-        align-items: center;
-        color: var(--main-dark) !important;
-
-        .animal-icon {
-            width: 32px;
-            aspect-ratio: 1;
-        }
-
-        &.active {
-            color: var(--white) !important;
-            background-color: var(--main-dark) !important;
-        }
+        flex-wrap: wrap;
     }
-}
 
-.pets-list {
-    padding-top: 8px;
-    gap: 16px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+    .homepage-add-weight-form {
+        padding: 0px 4px;
 
-.homepage-add-weight-form {
-    padding: 0px 4px;
+        .mb-3 {
+            width: 100%;
 
-    .mb-3 {
-        width: 100%;
-
-        input[type='number'],
-        input[type='date'] {
-            width: 50%;
+            input[type='number'],
+            input[type='date'] {
+                width: 50%;
+            }
         }
     }
 }

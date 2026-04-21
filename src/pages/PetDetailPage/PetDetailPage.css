@@ -1,9 +1,10 @@
 .pet-detail-page {
     padding: 24px 8px 72px 8px;
 
-    .header {
+    header {
         display: flex;
         align-items: center;
+        flex-direction: row;
         gap: 16px;
 
         a {
@@ -23,7 +24,6 @@
         }
 
         h1 {
-            padding-top: 16px;
             font-size: 36px;
         }
     }

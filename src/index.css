@@ -61,6 +61,11 @@ button {
   }
 }
 
+header {
+  display: flex;
+  align-items: center;
+}
+
 h1 {
   font-family: "Inter-Bold", sans-serif;
   font-size: 32px;
