@@ -8,7 +8,7 @@ export default function PetDetails({ onSubmit, onCancel, pet }) {
     }
 
     const moveDateFormatted = pet.moveDate ?
-        pet.toDate().toLocaleDateString("de-DE", {
+        pet.moveDate.toDate().toLocaleDateString("de-DE", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
