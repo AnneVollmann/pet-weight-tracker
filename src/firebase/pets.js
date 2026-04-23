@@ -35,3 +35,8 @@ export async function updatePetTimestamp(petId) {
   const petRef = doc(db, "pets", petId);
   await updateDoc(petRef, { lastUpdated: serverTimestamp() })
 }
+
+export async function updatePetProperty(petId, property, value) {
+  const petRef = doc(db, "pets", petId);
+  await updateDoc(petRef, { [property]: value })
+}
