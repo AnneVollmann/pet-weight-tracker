@@ -118,9 +118,10 @@ export default function PetDetailPage() {
             <BasicModal
                 show={showPetDetails}
                 onHide={() => setShowPetDetails(false)}
-                title={pet.name}
+                pet={pet.name}
             >
-                <PetDetails></PetDetails>
+                <PetDetails pet={pet}>
+                </PetDetails>
             </BasicModal>
         </section>
     );
