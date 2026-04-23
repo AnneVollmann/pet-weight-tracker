@@ -61,6 +61,38 @@ button {
   }
 }
 
+.btn-back {
+  background-image: url(../public/assets/icons/arrow-left-circle.svg);
+
+  &:hover {
+    background-image: url(../public/assets/icons/arrow-left-circle-fill.svg);
+  }
+}
+
+.btn-infos {
+  background-image: url(../public/assets/icons/info-circle.svg);
+
+  &:hover {
+    background-image: url(../public/assets/icons/info-circle-fill.svg);
+  }
+}
+
+.btn-edit {
+  background-image: url(../public/assets/icons/pencil.svg);
+
+  &:hover {
+    background-image: url(../public/assets/icons/pencil-fill.svg);
+  }
+}
+
+.btn-submit {
+  background-image: url(../public/assets/icons/check.svg);
+
+  &:hover {
+    background-image: url(../public/assets/icons/check-big.svg);
+  }
+}
+
 header {
   display: flex;
   align-items: center;

@@ -76,7 +76,7 @@ export default function PetDetailPage() {
                         e.preventDefault();
                         e.stopPropagation();
                         setShowPetDetails(true);
-                    }} type="button" className="btn btn-primary">E</button>
+                    }} type="button" className="btn-infos btn"/>
                 </header>
                 {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeightValue} g </p>}
                 {weights.length === 0 && <p className="no-entries">Noch keine Einträge</p>}

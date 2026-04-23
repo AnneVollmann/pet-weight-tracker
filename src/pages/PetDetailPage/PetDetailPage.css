@@ -7,20 +7,9 @@
         flex-direction: row;
         gap: 16px;
 
-        a {
-            height: 40px;
+        a, .btn {
+            width: 40px;
             aspect-ratio: 1;
-
-            .btn-back {
-                width: 100%;
-                aspect-ratio: 1;
-                background-image: url(../../../public/assets/icons/arrow-left-circle.svg);
-
-                &:hover {
-                    background-image: url(../../../public/assets/icons/arrow-left-circle-fill.svg);
-                }
-            }
-
         }
 
         h1 {
@@ -164,8 +153,9 @@
                 padding: 0;
             }
 
-            button {
-                height: fit-content;
+            .btn {
+                width: 20px;
+                aspect-ratio: 1;
             }
         }
     }

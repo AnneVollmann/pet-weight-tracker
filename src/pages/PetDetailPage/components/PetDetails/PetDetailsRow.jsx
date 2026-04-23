@@ -35,9 +35,7 @@ export default function PetDetailRow({ label, value, id, onSubmit }) {
                         <button
                             onClick={handleSubmit}
                             type="button"
-                            className="btn btn-primary">
-                            S
-                        </button>
+                            className="btn-submit btn"/>
                     </>
                 ) : (
                     <>
@@ -50,9 +48,7 @@ export default function PetDetailRow({ label, value, id, onSubmit }) {
                         <button
                             onClick={handleEdit}
                             type="button"
-                            className="btn btn-primary">
-                            E
-                        </button>
+                            className="btn-edit btn"/>
                     </>
                 )}
             </div>
