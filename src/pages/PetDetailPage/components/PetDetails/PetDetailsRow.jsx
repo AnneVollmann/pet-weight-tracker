@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function PetDetailRow({ label, value, id }) {
+export default function PetDetailRow({ label, value, id, onSubmit }) {
     const [isEditing, setIsEditing] = useState(false);
     const [currentInput, setCurrentInput] = useState(value);
 
@@ -12,6 +12,11 @@ export default function PetDetailRow({ label, value, id }) {
     function handleCancel() {
         setIsEditing(false);
         setCurrentInput(value);
+    }
+
+    function handleSubmit(){
+        onSubmit(id, currentInput);
+        setIsEditing(false);
     }
 
     return (
@@ -28,10 +33,10 @@ export default function PetDetailRow({ label, value, id }) {
                             onChange={(e) => setCurrentInput(e.target.value)}
                         />
                         <button
-                            onClick={handleCancel}
+                            onClick={handleSubmit}
                             type="button"
                             className="btn btn-primary">
-                            X
+                            S
                         </button>
                     </>
                 ) : (
@@ -40,7 +45,7 @@ export default function PetDetailRow({ label, value, id }) {
                             type="text"
                             className="form-control-plaintext"
                             id={id}>
-                            {value}
+                            {currentInput || value}
                         </p>
                         <button
                             onClick={handleEdit}

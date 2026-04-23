@@ -59,10 +59,6 @@ export default function PetDetailPage() {
         return acc;
     }, {});
 
-    function openPetDetails() {
-        console.log("a")
-    }
-
     if (!pet) return <h1>Lade...</h1>;
 
     return (
@@ -83,7 +79,7 @@ export default function PetDetailPage() {
                     }} type="button" className="btn btn-primary">E</button>
                 </header>
                 {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeightValue} g </p>}
-                {weights.length === 0 && <p>Noch keine Einträge</p>}
+                {weights.length === 0 && <p className="no-entries">Noch keine Einträge</p>}
             </div>
 
             <div className="weight-chart">
@@ -120,7 +116,8 @@ export default function PetDetailPage() {
                 onHide={() => setShowPetDetails(false)}
                 pet={pet.name}
             >
-                <PetDetails pet={pet}>
+                <PetDetails
+                pet={pet}>
                 </PetDetails>
             </BasicModal>
         </section>

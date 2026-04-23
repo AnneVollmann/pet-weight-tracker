@@ -1,18 +1,11 @@
 import { useState } from "react";
 import PetDetailRow from "./PetDetailsRow";
+import { updatePetProperty } from "../../../../firebase/pets";
 
 export default function PetDetails({ onSubmit, onCancel, pet }) {
-    function handleSubmit(e) {
-        e.preventDefault();
-        onCancel();
+    function handleSubmit(id, currentInput) {
+        updatePetProperty(pet.id, id, currentInput);
     }
-
-    const moveDateFormatted = pet.moveDate ?
-        pet.moveDate.toDate().toLocaleDateString("de-DE", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-        }) : ""
 
     return (
         <section className="pet-details">
@@ -20,24 +13,28 @@ export default function PetDetails({ onSubmit, onCancel, pet }) {
                 id="birthday"
                 label="Geburtstag"
                 value={pet.birthday || ""}
+                onSubmit={(id, currentInput) => handleSubmit(id, currentInput)}
             />
 
             <PetDetailRow
                 id="moveDate"
                 label="Bei uns seit"
-                value={moveDateFormatted}
+                value={pet.moveDate || ""}
+                onSubmit={(id, currentInput) => handleSubmit(id, currentInput)}
             />
 
             <PetDetailRow
                 id="conditions"
                 label="Erkrankungen"
                 value={pet.conditions || ""}
+                onSubmit={(id, currentInput) => handleSubmit(id, currentInput)}
             />
 
             <PetDetailRow
                 id="description"
                 label="Sonstiges"
                 value={pet.description || ""}
+                onSubmit={(id, currentInput) => handleSubmit(id, currentInput)}
             />
         </section >
     );
