@@ -117,7 +117,8 @@ export default function PetDetailPage() {
                 pet={pet.name}
             >
                 <PetDetails
-                pet={pet}>
+                pet={pet}
+                onUpdatePet={setPet}>
                 </PetDetails>
             </BasicModal>
         </section>

@@ -2,9 +2,13 @@ import { useState } from "react";
 import PetDetailRow from "./PetDetailsRow";
 import { updatePetProperty } from "../../../../firebase/pets";
 
-export default function PetDetails({ onSubmit, onCancel, pet }) {
-    function handleSubmit(id, currentInput) {
-        updatePetProperty(pet.id, id, currentInput);
+export default function PetDetails({ onSubmit, onCancel, pet, onUpdatePet }) {
+    async function handleSubmit(id, currentInput) {
+        await updatePetProperty(pet.id, id, currentInput);
+        onUpdatePet((prev)=>({
+            ...prev,
+            [id]:currentInput
+        }));
     }
 
     return (

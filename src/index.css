@@ -91,7 +91,7 @@ button {
   &:hover {
     background-image: url(../public/assets/icons/check-big.svg);
   }
-}
+} 
 
 header {
   display: flex;
