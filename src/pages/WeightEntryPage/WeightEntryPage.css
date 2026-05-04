@@ -17,6 +17,14 @@
     }
 }
 
+.pet-selector {
+    .animal-icon {
+        width: 20px;
+        aspect-ratio: 1;
+        margin-right: 4px;
+    }
+}
+
 .weight-selector {
     padding-top: 20px;
 

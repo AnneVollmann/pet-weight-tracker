@@ -18,7 +18,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, pets })
     }
 
     return (
-        <div>
+        <div className="pet-selector">
             <h2>Tiere</h2>
             <div className="form-check">
                 <input
@@ -122,6 +122,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, pets })
                                     key={pet.id}
                                     className={`dropdown-item ${isActive ? "active" : ""}`}
                                 >
+                                    <img src={`./../assets/icons/${pet.species}.svg`} alt={"a" + "-icon"} className="animal-icon"/>
                                     {pet.name}
                                 </li>
                             );
