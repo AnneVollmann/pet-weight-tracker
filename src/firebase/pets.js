@@ -17,6 +17,23 @@ export async function getPetById(petId) {
   }
 }
 
+export function getGroupedPets(pets) {
+  const groupedPets = {};
+
+  pets.forEach(pet => {
+    if (!pet.group) return;
+    if (!groupedPets[pet.group]) {
+      groupedPets[pet.group] = [];
+    }
+    groupedPets[pet.group].push(pet.id);
+  });
+
+  return Object.entries(groupedPets).map(([group, petIds]) => ({
+    group,
+    petIds
+  }));
+}
+
 export async function addPet(species, name, lastUpdated = serverTimestamp()) {
   try {
     const petRef = await addDoc(collection(db, "pets"), {

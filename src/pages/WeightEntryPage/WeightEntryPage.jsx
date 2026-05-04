@@ -47,7 +47,7 @@ export default function WeightEntryPage() {
                     <PetSelector
                         selectedPetIds={selectedPetIds}
                         setSelectedPetIds={setSelectedPetIds}
-                        allPets={allPets}
+                        pets={allPets}
                     />
                     <WeightSelector
                         selectedPetIds={selectedPetIds}

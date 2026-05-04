@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { getAllGroups } from "../../firebase/groups";
+import { getGroupedPets } from "../../firebase/pets";
 
-export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets }) {
-    const [allGroups, setAllGroups] = useState([]);
+export default function PetSelector({ selectedPetIds, setSelectedPetIds, pets }) {
+    const [groups, setGroups] = useState([]);
     const [petSelectionMode, setPetSelectionMode] = useState("all");    //"all" | "group" | "specific"
 
     useEffect(() => {
-        getAllGroups().then(setAllGroups);
-    }, []);
+        if (!pets || pets.length === 0) return;
+        setGroups(getGroupedPets(pets));
+    }, [pets]);
 
     function sameIds(a = [], b = []) {
         return (
@@ -29,7 +30,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                     checked={petSelectionMode === 'all'}
                     onChange={() => {
                         setPetSelectionMode("all");
-                        setSelectedPetIds(allPets.map(p => p.id));
+                        setSelectedPetIds(pets.map(p => p.id));
                     }}
                 />
                 <label className="form-check-label" htmlFor="allPets">
@@ -64,16 +65,16 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                         }}
                     ></button>
                     <ul className="dropdown-menu">
-                        {allGroups.map(group => {
-                            const isActive = sameIds(group.petIds, selectedPetIds);
+                        {groups.map(g => {
+                            const isActive = sameIds(g.petIds, selectedPetIds);
 
                             return (
                                 <li
-                                    key={group.id}
+                                    key={g.group}
                                     className={`dropdown-item ${isActive ? "active" : ""}`}
-                                    onClick={() => setSelectedPetIds(group.petIds)}
+                                    onClick={() => setSelectedPetIds(g.petIds)}
                                 >
-                                    {group.name}
+                                    {g.group}
                                 </li>
                             );
                         })}
@@ -109,7 +110,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, allPets
                         }}
                     ></button>
                     <ul className="dropdown-menu">
-                        {allPets.map(pet => {
+                        {pets.map(pet => {
                             const isActive = selectedPetIds.includes(pet.id);
 
                             return (
