@@ -14,6 +14,13 @@ export default function PetDetails({ onSubmit, onCancel, pet, onUpdatePet }) {
     return (
         <section className="pet-details">
             <PetDetailRow
+                id="group"
+                label="Gruppe"
+                value={pet.group || ""}
+                onSubmit={(id, currentInput) => handleSubmit(id, currentInput)}
+            />
+
+            <PetDetailRow
                 id="birthday"
                 label="Geburtstag"
                 value={pet.birthday || ""}
