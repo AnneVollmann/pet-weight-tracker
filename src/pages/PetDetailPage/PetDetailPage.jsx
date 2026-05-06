@@ -64,8 +64,6 @@ export default function PetDetailPage() {
     return (
         <section className="page pet-detail-page">
 
-            {showWeightWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
-
             <div className="pet-detail-overview">
                 <header>
                     <Link to="/">
@@ -78,6 +76,7 @@ export default function PetDetailPage() {
                         setShowPetDetails(true);
                     }} type="button" className="btn-infos btn"/>
                 </header>
+                {showWeightWarning && <WarningBadge petName={pet.name} ></WarningBadge>}
                 {weights.length >= 2 && <p className="pet-average-weight">Durchschnittsgewicht: {periodAverageWeightValue} g </p>}
                 {weights.length === 0 && <p className="no-entries">Noch keine Einträge</p>}
             </div>
