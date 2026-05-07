@@ -13,6 +13,15 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
             onSelectPeriodEndDate(entryDate)
         }
     }
+
+    function formatDateForInput(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+    
     return (
         <ul className="pet-weights-overview">
             {Object.entries(groupedWeights)
@@ -51,7 +60,7 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
                                                                 type="date"
                                                                 className="form-control"
                                                                 min="1900-01-01"
-                                                                value={weight.date.toDate().toISOString().split("T")[0]}
+                                                                defaultValue={formatDateForInput(weight.date.toDate())}
                                                             />)
                                                             : (<>
                                                                 {weight.date.toDate().toLocaleDateString("de-DE", {
@@ -69,7 +78,7 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
                                                             ? (<input
                                                                 type="text"
                                                                 className="form-control-plaintext"
-                                                                value={weight.weight}
+                                                                defaultValue={weight.weight}
                                                             />)
                                                             : (<>
                                                                 {weight.weight}
