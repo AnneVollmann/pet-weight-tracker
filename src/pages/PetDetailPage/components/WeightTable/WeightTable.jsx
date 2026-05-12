@@ -2,19 +2,26 @@ import { useState } from "react";
 import { formatDateForInput } from "../../../../lib/dates/formatDate";
 
 export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
-    const [selectedEntry, setSelectedEntry] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
+    const [activeEntry, setActiveEntry] = useState({
+        id: null,
+        isEditing: false
+    });
 
-    function handleEntryClick(entryKey, entryDate) {
-        if (selectedEntry == entryKey) {
-            setIsEditing(true);
+    function handleEntryClick(entryId, entryDate) {
+        if (activeEntry.id === entryId) {
+            setActiveEntry({
+                id: entryId,
+                isEditing: true
+            });
         } else {
-            setIsEditing(false);
-            setSelectedEntry(entryKey);
+            setActiveEntry({
+                id: entryId,
+                isEditing: false
+            });
             onSelectPeriodEndDate(entryDate)
         }
     }
-    
+
     return (
         <ul className="pet-weights-overview">
             {Object.entries(groupedWeights)
@@ -41,14 +48,14 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
                                                     handleEntryClick(weight.id, weight.date.toDate())
                                                 }}
                                                 className={
-                                                    selectedEntry === weight.id
-                                                        ? (isEditing == true ? "editing-entry" : "selected-entry")
+                                                    activeEntry.id === weight.id
+                                                        ? (activeEntry.isEditing == true ? "editing-entry" : "selected-entry")
                                                         : ""
                                                 }>
 
                                                 <span className="pet-date" >
                                                     {
-                                                        selectedEntry === weight.id && isEditing === true
+                                                        activeEntry.id === weight.id && activeEntry.isEditing === true
                                                             ? (<input
                                                                 type="date"
                                                                 className="form-control"
@@ -67,7 +74,7 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
 
                                                 <span className="pet-weight">
                                                     {
-                                                        selectedEntry === weight.id && isEditing === true
+                                                        activeEntry.id === weight.id && activeEntry.isEditing === true
                                                             ? (<input
                                                                 type="text"
                                                                 className="form-control-plaintext"
