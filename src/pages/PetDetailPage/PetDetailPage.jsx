@@ -10,6 +10,7 @@ import WeightChart from "./components/WeightChart/WeightChart";
 import WarningBadge from "./components/WarningBadge/WarningBadge";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
 import PetDetails from "./components/PetDetails/PetDetails";
+import { formatDateToString } from "../../lib/dates/formatDate";
 
 export default function PetDetailPage() {
     const { id } = useParams();
@@ -94,11 +95,7 @@ export default function PetDetailPage() {
                         "\u00A0"
                     ) : (
                         <>
-                            {selectedWeight.date.toDate().toLocaleDateString("de-DE", {
-                                day: "2-digit",
-                                month: "2-digit",
-                                year: "numeric",
-                            })}:{" "}
+                            {formatDateToString(selectedWeight.date)}:{" "}
                             {selectedWeight.weight} g
                         </>
                     )}

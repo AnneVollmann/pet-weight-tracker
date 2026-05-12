@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formatDateForInput } from "../../../../lib/dates/formatDate";
+import { formatDateToString } from "../../../../lib/dates/formatDate";
 
 export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
     const [activeEntry, setActiveEntry] = useState({
@@ -63,11 +64,7 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
                                                                 defaultValue={formatDateForInput(weight.date.toDate())}
                                                             />)
                                                             : (<>
-                                                                {weight.date.toDate().toLocaleDateString("de-DE", {
-                                                                    day: "2-digit",
-                                                                    month: "2-digit",
-                                                                    year: "numeric",
-                                                                })}
+                                                                { formatDateToString(weight.date)}
                                                             </>)
                                                     }
                                                 </span>
