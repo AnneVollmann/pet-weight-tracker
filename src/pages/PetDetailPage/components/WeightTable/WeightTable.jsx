@@ -22,6 +22,13 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
         }
     }
 
+    function clearActiveEntry() {
+        setActiveEntry({
+            id: null,
+            isEditing: false
+        })
+    }
+
     return (
         <ul className="pet-weights-overview">
             {Object.entries(groupedWeights)
@@ -39,6 +46,7 @@ export default function WeightTable({ groupedWeights, onSelectPeriodEndDate }) {
                                     month={month}
                                     monthWeights={monthWeights}
                                     activeEntry={activeEntry}
+                                    clearActiveEntry={clearActiveEntry}
                                     onEntryClick={handleEntryClick}
                                 />
                             ))}

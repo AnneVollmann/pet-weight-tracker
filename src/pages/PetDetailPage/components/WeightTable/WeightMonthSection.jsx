@@ -5,6 +5,7 @@ export default function WeightMonthSection({
     month,
     monthWeights,
     activeEntry,
+    clearActiveEntry,
     onEntryClick
 }) {
     return (
@@ -21,6 +22,7 @@ export default function WeightMonthSection({
                         key={weight.id}
                         weight={weight}
                         activeEntry={activeEntry}
+                        clearActiveEntry={clearActiveEntry}
                         onEntryClick={onEntryClick}
                     />
                 ))}

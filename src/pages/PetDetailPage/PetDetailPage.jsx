@@ -29,7 +29,7 @@ export default function PetDetailPage() {
             setWeights(w);
         }
         fetchData();
-    }, [id]);
+    }, [id, weights]);
 
     const sortedWeights = getSortedWeights(weights);
 

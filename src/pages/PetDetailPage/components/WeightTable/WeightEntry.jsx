@@ -1,15 +1,27 @@
+import { useState } from "react";
 import {
     formatDateToString,
     formatDateForInput
 } from "../../../../lib/dates/formatDate";
+import { updateWeight } from "../../../../firebase/weights";
+import { Timestamp } from "firebase/firestore";
 
-export default function WeightEntry({
-    weight,
-    activeEntry,
-    onEntryClick
-}) {
+export default function WeightEntry({ weight, activeEntry, clearActiveEntry, onEntryClick }) {
+    const [editedEntry, setEditedEntry] = useState({
+        weight: weight.weight,
+        date: formatDateForInput(weight.date.toDate())
+    });
+
     const isSelected = activeEntry.id === weight.id;
     const isEditing = isSelected && activeEntry.isEditing;
+
+    async function handleSave() {
+        await updateWeight(weight.id, {
+            weight: Number(editedEntry.weight),
+            date: Timestamp.fromDate(new Date(editedEntry.date))
+        });
+        clearActiveEntry();
+    }
 
     return (
         <li
@@ -30,7 +42,14 @@ export default function WeightEntry({
                             type="date"
                             className="form-control"
                             min="1900-01-01"
-                            defaultValue={formatDateForInput(weight.date.toDate())}
+                            value={editedEntry.date}
+                            onChange={(e) =>
+                                setEditedEntry(prev => ({
+                                    ...prev,
+                                    date: e.target.value
+                                }))
+                            }
+                            onBlur={handleSave}
                         />)
                         : (<>
                             {formatDateToString(weight.date)}
@@ -44,7 +63,14 @@ export default function WeightEntry({
                         ? (<input
                             type="text"
                             className="form-control-plaintext"
-                            defaultValue={weight.weight}
+                            value={editedEntry.weight}
+                            onChange={(e) =>
+                                setEditedEntry(prev => ({
+                                    ...prev,
+                                    weight: e.target.value
+                                }))
+                            }
+                            onBlur={handleSave}
                         />)
                         : (<>
                             {weight.weight}
