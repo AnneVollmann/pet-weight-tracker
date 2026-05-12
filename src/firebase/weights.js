@@ -1,5 +1,5 @@
 import { db } from "./config";
-import { collection, getDocs, query, where, addDoc, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, where, addDoc, orderBy, doc, updateDoc } from "firebase/firestore";
 
 export async function getWeightsForPet(petId) {
     const q = query(
@@ -16,14 +16,19 @@ export async function getWeightsForPet(petId) {
 
 export async function addWeight(petId, weight, date = new Date()) {
     try {
-        const docRef = await addDoc(collection(db, "weights"), {
+        const weightRef = await addDoc(collection(db, "weights"), {
             petId,
             weight,
             date
         });
-        return docRef.id;
+        return weightRef.id;
     } catch (error) {
         console.error("Fehler beim Hinzufügen des Gewichts für", petId, ":", error);
         throw error;
     }
+}
+
+export async function updateWeight(weightId, updatedData) {
+    const weightRef = doc(db, "weights", weightId);
+    await updateDoc(weightRef, updatedData)
 }
