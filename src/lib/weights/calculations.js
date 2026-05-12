@@ -1,9 +1,5 @@
 import { getWeightsInPeriod } from "./selectors";
 
-// export function getNumberOfVisibleWeights(sortedWeights, limit) {
-//     return sortedWeights.length <= limit ? sortedWeights.length : limit;
-// }
-
 //get the date of the earliest or latest weight in an array of sortedWeights
 export function getDate(sortedWeights, position) {
     if (!sortedWeights.length) return null;
