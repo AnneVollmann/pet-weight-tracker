@@ -4,17 +4,18 @@ import { animalCategories } from "../../../constants/animalCategories";
 export default function AddPetForm({ onSubmit, onCancel }) {
     const [species, setSpecies] = useState("");
     const [name, setName] = useState("");
+    const [group, setGroup] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
-        onSubmit(species, name);
+        onSubmit(species, name, group);
         onCancel();
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label">Name</label>
+                <label className="form-label">Name*</label>
                 <input
                     className="form-control"
                     value={name}
@@ -24,7 +25,7 @@ export default function AddPetForm({ onSubmit, onCancel }) {
             </div>
 
             <div className="mb-3">
-                <label className="form-label">Tierart</label>
+                <label className="form-label">Tierart*</label>
                 <select
                     className="form-select"
                     value={species}
@@ -34,6 +35,15 @@ export default function AddPetForm({ onSubmit, onCancel }) {
                         <option key={species.id} value={species.id}>{species.label}</option>
                     ))}
                 </select>
+            </div>
+
+            <div className="mb-3">
+                <label className="form-label">Gruppe</label>
+                <input
+                    className="form-control"
+                    value={group}
+                    onChange={(e) => setGroup(e.target.value)}
+                />
             </div>
 
             <div className="d-flex justify-content-end gap-2">

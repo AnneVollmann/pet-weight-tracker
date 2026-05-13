@@ -34,11 +34,12 @@ export function getGroupedPets(pets) {
   }));
 }
 
-export async function addPet(species, name, lastUpdated = serverTimestamp()) {
+export async function addPet(species, name, group, lastUpdated = serverTimestamp()) {
   try {
     const petRef = await addDoc(collection(db, "pets"), {
       species,
       name,
+      group,
       lastUpdated
     });
     return petRef.id;

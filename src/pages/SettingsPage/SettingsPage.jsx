@@ -8,9 +8,9 @@ export default function SettingsPage() {
     const [showAddPet, setShowAddPet] = useState(false);
     const [showToastAddPet, setShowToastAddPet] = useState(false);
 
-    async function handleAddPet(img, name) {
+    async function handleAddPet(species, name, group) {
         try {
-            await addPet(img, name);
+            await addPet(species, name, group);
             setShowAddPet(false);
             setShowToastAddPet(true);
         } catch (error) {
@@ -34,8 +34,8 @@ export default function SettingsPage() {
                     title={"Neues Tier hinzufügen"}
                 >
                     {<AddPetForm
-                        onSubmit={(img, name) =>
-                            handleAddPet(img, name)
+                        onSubmit={(species, name, group) =>
+                            handleAddPet(species, name, group)
                         }
                         onCancel={() => setShowAddPet(false)}
                     />}
