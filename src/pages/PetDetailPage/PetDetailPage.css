@@ -1,69 +1,68 @@
 .pet-detail-page {
     padding: 24px 8px 72px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .module {
+        background-color: var(--light-gray);
+        border-radius: 12px;
+        border: 1px solid var(--light-gray);
+        box-shadow: var(--gray) 0px 1px 4px;
+    }
 }
 
-.pet-detail-overview {
-    padding: 0px 24px 0px 24px;
+.pet-detail-header {
+    display: flex;
+    flex-direction: column;
 
-    header {
-        padding-bottom: 12px;
+    a,
+    .btn {
+        width: 40px;
+        aspect-ratio: 1;
+    }
+
+    .overview {
         display: flex;
-        align-items: center;
-        flex-direction: row;
-        gap: 16px;
+        gap: 20px;
 
-        a,
-        .btn {
-            width: 40px;
+        .pet-img {
+            width: 30% !important;
             aspect-ratio: 1;
         }
 
-        h1 {
-            font-size: 36px;
+        .overview-information {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            p {
+                margin-bottom: 0;
+            }
         }
     }
+}
 
-    .no-entries {
-        padding-top: 32px;
-        color: var(--gray);
-        text-align: center;
-        font-size: 20px;
-    }
-
-    .warning-badge {
-        max-width: 80%;
-        margin-bottom: 8px;
-        padding: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: var(--warning);
-        border-radius: 12px;
-
-        p {
-            margin: 0;
-            line-height: 1.1;
-            font-size: 14px;
-            text-align: center;
-        }
-    }
+.no-entries {
+    padding-top: 32px;
+    color: var(--gray);
+    text-align: center;
+    font-size: 16px;
 }
 
 .weight-chart {
-    min-height: 240px;
-    padding-top: 12px;
+    padding: 12px 4px;
     position: sticky;
     top: 0px;
-    background-color: var(--background);
 
-    .selected-weight {
+    /* .selected-weight {
         padding-top: 4px;
         padding-bottom: 12px;
-    }
+    } */
 }
 
 .pet-weights-overview {
-    padding: 0px 24px 12px 24px;
+    padding: 12px 24px;
     max-width: 560px;
     margin: 0 auto;
     align-self: center;
