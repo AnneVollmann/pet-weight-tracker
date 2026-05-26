@@ -61,6 +61,10 @@ export default function PetDetailPage() {
         return acc;
     }, {});
 
+    function selectWeight() {
+
+    }
+
     function getPetSpeciesLabel(species) {
         const category = animalCategories.find(category => category.id === species)
         return category.label
@@ -106,16 +110,16 @@ export default function PetDetailPage() {
                             onSelectWeight={setSelectedWeight}
                         />
 
-                        {/* <p className="selected-weight">
-                    {selectedWeight === null ? (
-                        "\u00A0"
-                    ) : (
-                        <>
-                            {formatDateToString(selectedWeight.date)}:{" "}
-                            {selectedWeight.weight} g
-                        </>
-                    )}
-                </p> */}
+                        <p className="selected-weight">
+                            {selectedWeight === null ? (
+                                "\u00A0"
+                            ) : (
+                                <>
+                                    {formatDateToString(selectedWeight.date)}:{" "}
+                                    {selectedWeight.weight} g
+                                </>
+                            )}
+                        </p>
                     </div>
 
                     <div className="module">

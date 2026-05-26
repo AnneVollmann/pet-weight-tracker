@@ -55,10 +55,11 @@
     position: sticky;
     top: 0px;
 
-    /* .selected-weight {
-        padding-top: 4px;
-        padding-bottom: 12px;
-    } */
+    .selected-weight {
+        margin-bottom: -4px;
+        margin-top: -12px;
+        padding-left: 8px;
+    }
 }
 
 .pet-weights-overview {
