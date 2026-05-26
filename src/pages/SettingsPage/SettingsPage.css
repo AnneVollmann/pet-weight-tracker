@@ -1,0 +1,15 @@
+.add-pet-form {
+    .form-pet-group {
+        position: relative;
+
+        .add-new-group {
+            width: 90%;
+            position: absolute;
+            transform: translateY(-102%);
+
+            input {
+                border: 1px transparent;
+            }
+        }
+    }
+}
