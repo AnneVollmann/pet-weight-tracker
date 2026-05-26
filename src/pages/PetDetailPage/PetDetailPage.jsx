@@ -87,7 +87,7 @@ export default function PetDetailPage() {
                 </div>
 
                 <div className="overview">
-                    <img className="pet-img" src={"/assets/img/" + pet.species + "-" + pet.name.toLowerCase() + ".png"} />
+                    <img className="pet-img" src={"/assets/img/" + pet.species + "-" + pet.name.toLowerCase() + ".png"} alt={pet.species + "-" + pet.name.toLowerCase()}/>
                     <div className="overview-information">
                         <h1>{pet.name}</h1>
                         <p>{getPetSpeciesLabel(pet.species)}

@@ -122,7 +122,7 @@ export default function PetSelector({ selectedPetIds, setSelectedPetIds, pets })
                                     key={pet.id}
                                     className={`dropdown-item ${isActive ? "active" : ""}`}
                                 >
-                                    <img src={`./../assets/icons/${pet.species}.svg`} alt={"a" + "-icon"} className="animal-icon"/>
+                                    <img src={`./../assets/icons/${pet.species}.svg`} alt={"a" + "-icon"} className="animal-icon" alt={pet.species}/>
                                     {pet.name}
                                 </li>
                             );
