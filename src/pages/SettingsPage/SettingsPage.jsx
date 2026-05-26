@@ -1,12 +1,29 @@
-import { useState } from "react";
+import "./SettingsPage.css"
+import { useEffect, useState } from "react";
 import AddPetForm from "./AddPetForm/AddPetForm";
-import { addPet } from "../../firebase/pets";
+import { addPet, getAllPets, getGroups } from "../../firebase/pets";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
 import Toast from "../../components/ui/Toast/Toast";
 
 export default function SettingsPage() {
+    const [pets, setPets] = useState([]);
     const [showAddPet, setShowAddPet] = useState(false);
     const [showToastAddPet, setShowToastAddPet] = useState(false);
+
+    useEffect(() => {
+        async function fetchPets() {
+            try {
+                const petsData = await getAllPets();
+                setPets(petsData);
+            }
+            catch (error) {
+                setPets("error");
+            }
+        }
+        fetchPets();
+    }, [pets]);
+
+    const petGroups = getGroups(pets);
 
     async function handleAddPet(species, name, group) {
         try {
@@ -38,6 +55,7 @@ export default function SettingsPage() {
                             handleAddPet(species, name, group)
                         }
                         onCancel={() => setShowAddPet(false)}
+                        petGroups = {petGroups}
                     />}
                 </BasicModal>
                 <Toast

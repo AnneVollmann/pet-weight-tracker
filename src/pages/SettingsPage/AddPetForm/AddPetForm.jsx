@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { animalCategories } from "../../../constants/animalCategories";
 
-export default function AddPetForm({ onSubmit, onCancel }) {
-    const [species, setSpecies] = useState("");
+export default function AddPetForm({ onSubmit, onCancel, petGroups }) {
+    const [species, setSpecies] = useState("guinea-pig");
     const [name, setName] = useState("");
     const [group, setGroup] = useState("");
+    const [newGroup, setNewGroup] = useState("");
 
     function handleSubmit(e) {
+        const finalGroup =
+            group === "add-new-group"
+                ? newGroup
+                : group;
         e.preventDefault();
-        onSubmit(species, name, group);
+        onSubmit(species, name, finalGroup);
         onCancel();
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="add-pet-form" onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label className="form-label">Name*</label>
                 <input
@@ -37,13 +42,37 @@ export default function AddPetForm({ onSubmit, onCancel }) {
                 </select>
             </div>
 
-            <div className="mb-3">
-                <label className="form-label">Gruppe</label>
-                <input
-                    className="form-control"
+            <div className="form-pet-group mb-3">
+                <label className="form-label">GRUPPE</label>
+                <select
+                    className="form-select"
                     value={group}
                     onChange={(e) => setGroup(e.target.value)}
-                />
+                >
+                    <option value="">Keine</option>
+
+                    {petGroups.map((groupName) => (
+                        <option key={groupName} value={groupName}>
+                            {groupName}
+                        </option>
+                    ))}
+
+                    <option value="add-new-group">
+                        + Neue Gruppe hinzufügen
+                    </option>
+                </select>
+
+                {group === "add-new-group" && (
+                    <div className="add-new-group mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Neue Gruppe eingeben"
+                            value={newGroup}
+                            onChange={(e) => setNewGroup(e.target.value)}
+                        />
+                    </div>
+                )}
             </div>
 
             <div className="d-flex justify-content-end gap-2">
