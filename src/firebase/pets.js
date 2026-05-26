@@ -17,6 +17,17 @@ export async function getPetById(petId) {
   }
 }
 
+export function getGroups(pets) {
+  const petGroups = [];
+
+  pets.forEach(pet => {
+    if(!pet.group || petGroups.includes(pet.group)) return;
+    petGroups.push(pet.group)
+  })
+  petGroups.sort();
+  return petGroups;
+}
+
 export function getGroupedPets(pets) {
   const groupedPets = {};
 
