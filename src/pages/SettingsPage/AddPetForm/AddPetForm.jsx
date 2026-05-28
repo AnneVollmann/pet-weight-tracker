@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { animalCategories } from "../../../constants/animalCategories";
+import SelectGroup from "../../../components/form/SelectGroup/SelectGroup";
 
 export default function AddPetForm({ onSubmit, onCancel, petGroups }) {
     const [species, setSpecies] = useState("guinea-pig");
@@ -42,38 +43,13 @@ export default function AddPetForm({ onSubmit, onCancel, petGroups }) {
                 </select>
             </div>
 
-            <div className="form-pet-group mb-3">
-                <label className="form-label">GRUPPE</label>
-                <select
-                    className="form-select"
-                    value={group}
-                    onChange={(e) => setGroup(e.target.value)}
-                >
-                    <option value="">Keine</option>
-
-                    {petGroups.map((groupName) => (
-                        <option key={groupName} value={groupName}>
-                            {groupName}
-                        </option>
-                    ))}
-
-                    <option value="add-new-group">
-                        + Neue Gruppe hinzufügen
-                    </option>
-                </select>
-
-                {group === "add-new-group" && (
-                    <div className="add-new-group mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Neue Gruppe eingeben"
-                            value={newGroup}
-                            onChange={(e) => setNewGroup(e.target.value)}
-                        />
-                    </div>
-                )}
-            </div>
+            <SelectGroup
+                group={group}
+                newGroup={newGroup}
+                petGroups={petGroups}
+                onSetGroup={(groupName) => setGroup(groupName)}
+                onSetNewGroup={(groupName) => setNewGroup(groupName)}
+            />
 
             <div className="d-flex justify-content-end gap-2">
                 <button type="button" className="btn btn-secondary" onClick={onCancel}>

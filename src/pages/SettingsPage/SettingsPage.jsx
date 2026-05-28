@@ -55,7 +55,7 @@ export default function SettingsPage() {
                             handleAddPet(species, name, group)
                         }
                         onCancel={() => setShowAddPet(false)}
-                        petGroups = {petGroups}
+                        petGroups={petGroups}
                     />}
                 </BasicModal>
                 <Toast
