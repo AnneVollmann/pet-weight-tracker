@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getAllPets } from "../../firebase/pets";
 import "./WeightEntryPage.css";
 import DateSelector from "./DateSelector";
 import PetSelector from "./PetSelector";
@@ -7,21 +6,18 @@ import WeightSelector from "./WeightSelector";
 import { addWeight } from "../../firebase/weights";
 import { updatePetTimestamp } from "../../firebase/pets";
 import Toast from "../../components/ui/Toast/Toast";
+import { usePets } from "../../context/PetsContext";
 
 export default function WeightEntryPage() {
+    const { pets, loading, error, refreshPets } = usePets();
     const [selectedDateOption, setSelectedDateOption] = useState(new Date());
-    const [allPets, setAllPets] = useState([]);
     const [selectedPetIds, setSelectedPetIds] = useState([]);
     const [weights, setWeights] = useState({});   // { petId: weight }
     const [showToastAddWeights, setShowToastAddWeights] = useState(false);
 
     useEffect(() => {
-        getAllPets().then(setAllPets);
-    }, []);
-
-    useEffect(() => {
-        if (allPets.length > 0 && selectedPetIds.length === 0) setSelectedPetIds(allPets.map(p => p.id))
-    }, [allPets]);
+        if (pets.length > 0 && selectedPetIds.length === 0) setSelectedPetIds(pets.map(p => p.id))
+    }, [pets]);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -47,7 +43,7 @@ export default function WeightEntryPage() {
                     <PetSelector
                         selectedPetIds={selectedPetIds}
                         setSelectedPetIds={setSelectedPetIds}
-                        pets={allPets}
+                        pets={pets}
                     />
                     <WeightSelector
                         selectedPetIds={selectedPetIds}

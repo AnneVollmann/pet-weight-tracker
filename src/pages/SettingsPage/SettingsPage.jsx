@@ -1,27 +1,15 @@
 import "./SettingsPage.css"
 import { useEffect, useState } from "react";
 import AddPetForm from "./AddPetForm/AddPetForm";
-import { addPet, getAllPets, getGroups } from "../../firebase/pets";
+import { addPet, getGroups } from "../../firebase/pets";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
 import Toast from "../../components/ui/Toast/Toast";
+import { usePets } from "../../context/PetsContext";
 
 export default function SettingsPage() {
-    const [pets, setPets] = useState([]);
+    const { pets, loading, error, refreshPets } = usePets();
     const [showAddPet, setShowAddPet] = useState(false);
     const [showToastAddPet, setShowToastAddPet] = useState(false);
-
-    useEffect(() => {
-        async function fetchPets() {
-            try {
-                const petsData = await getAllPets();
-                setPets(petsData);
-            }
-            catch (error) {
-                setPets("error");
-            }
-        }
-        fetchPets();
-    }, [pets]);
 
     const petGroups = getGroups(pets);
 
