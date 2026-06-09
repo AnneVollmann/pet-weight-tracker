@@ -1,5 +1,4 @@
 export default function SelectGroup({group, newGroup, petGroups, onSetGroup, onSetNewGroup}) {
-    
     return (
         <div className="form-pet-group mb-3">
             <label className="form-label">Gruppe</label>

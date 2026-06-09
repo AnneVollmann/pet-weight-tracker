@@ -1,3 +1,4 @@
+import "./PetDetails.css"
 import { useState } from "react";
 import PetDetailRow from "./PetDetailsRow";
 import { updatePetProperty } from "../../../../firebase/pets";

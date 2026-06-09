@@ -61,10 +61,6 @@ export default function PetDetailPage() {
         return acc;
     }, {});
 
-    function selectWeight() {
-
-    }
-
     function getPetSpeciesLabel(species) {
         const category = animalCategories.find(category => category.id === species)
         return category.label
