@@ -43,7 +43,7 @@ export default function WeightEntryPage() {
                     <PetSelector
                         selectedPetIds={selectedPetIds}
                         setSelectedPetIds={setSelectedPetIds}
-                        pets={pets}
+                        pets={pets.filter((pet) => pet.archived !== true)}
                     />
                     <WeightSelector
                         selectedPetIds={selectedPetIds}
