@@ -11,7 +11,7 @@ import { usePets } from "../../context/PetsContext";
 
 export default function HomePage() {
     const { pets, loading, error, refreshPets } = usePets();
-    const [selectedSpecies, setSelectedSpecies] = useState(null);
+    const [selectedSpecies, setSelectedSpecies] = useState("all");
     const [showAddWeight, setShowAddWeight] = useState(false);
     const [showToastAddWeight, setShowToastAddWeight] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
@@ -24,8 +24,11 @@ export default function HomePage() {
 
     const visiblePets = [...pets]
         .filter((pet) => {
-            if (selectedSpecies === null) return true;
-            return pet.species === selectedSpecies;
+            switch(selectedSpecies) {
+                case "all": return pet.archived !== true;
+                case "archive": return pet.archived === true;
+                default: return pet.archived !== true && pet.species === selectedSpecies;
+            }
         })
         .sort(
             (a, b) => b.lastUpdated.toDate() - a.lastUpdated.toDate()

@@ -5,8 +5,8 @@ export default function CategorySelector({ selectedSpecies, onSelectSpecies }) {
     return (
         <nav className="nav nav-pills">
             <a
-                className={`nav-link ${selectedSpecies === null ? "active" : ""}`}
-                onClick={() => onSelectSpecies(null)}>
+                className={`nav-link ${selectedSpecies === "all" ? "active" : ""}`}
+                onClick={() => onSelectSpecies("all")}>
                 Alle
             </a>
             {animalCategories.map((category) => (
@@ -17,6 +17,12 @@ export default function CategorySelector({ selectedSpecies, onSelectSpecies }) {
                     <img src={`./assets/icons/${category.id}${selectedSpecies === category.id ? "-light" : ""}.svg`} alt={category.id + "-icon"} className="animal-icon" />
                 </a>
             ))}
+            <a
+                className={`nav-link ${selectedSpecies === "archive" ? "active" : ""}`}
+                style={{marginLeft: "auto"}}
+                onClick={() => onSelectSpecies("archive")}>
+                Archiv
+            </a>
         </nav>
     );
 }
