@@ -1,20 +1,26 @@
 import "./HomePage.css";
 import PetCard from "./PetCard/PetCard";
 import AddWeightForm from "./AddWeightForm/AddWeightForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updatePetTimestamp } from "../../firebase/pets";
 import { addWeight } from "../../firebase/weights";
 import BasicModal from "../../components/ui/BasicModal/BasicModal";
 import Toast from "../../components/ui/Toast/Toast";
 import CategorySelector from "./CategorySelector/CategorySelector";
 import { usePets } from "../../context/PetsContext";
+import { useLocation } from "react-router-dom";
 
 export default function HomePage() {
+    const location = useLocation();
     const { pets, loading, error, refreshPets } = usePets();
     const [selectedSpecies, setSelectedSpecies] = useState("all");
     const [showAddWeight, setShowAddWeight] = useState(false);
     const [showToastAddWeight, setShowToastAddWeight] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
+
+    useEffect(() => {
+        refreshPets();
+    }, [location.pathname]);
 
     if (loading) return <p>Lädt…</p>;
 
@@ -24,7 +30,7 @@ export default function HomePage() {
 
     const visiblePets = [...pets]
         .filter((pet) => {
-            switch(selectedSpecies) {
+            switch (selectedSpecies) {
                 case "all": return pet.archived !== true;
                 case "archive": return pet.archived === true;
                 default: return pet.archived !== true && pet.species === selectedSpecies;
