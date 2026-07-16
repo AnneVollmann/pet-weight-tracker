@@ -17,9 +17,9 @@ export default function PetDetails({ onSubmit, onCancel, pet, onUpdatePet }) {
         }));
     }
 
-    async function archivePet() {
-        await updatePetProperty(pet.id, "archived", true);
-        navigate("/");
+    async function setPetArchived(archived) {
+            await updatePetProperty(pet.id, "archived", archived);
+            navigate("/");
     }
 
     return (
@@ -59,7 +59,12 @@ export default function PetDetails({ onSubmit, onCancel, pet, onUpdatePet }) {
                 onSubmit={(id, currentInput) => handleSubmit(id, currentInput)}
             />
 
-            <button onClick={archivePet}>Archivieren</button>
+            {pet.archived ? (
+                <button onClick={() => setPetArchived(false)}>Wiederherstellen</button>
+            ) : (
+                <button onClick={() => setPetArchived(true)}>Archivieren</button>)
+            }
+
         </section >
     );
 }
